@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mon site mobile</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="steelblue">
+</head>
+
+<body>
+
+  <header>
+    <h1 id="welcomeMessage"></h1>
+    <button id="logoutBtn" class="deconnexion">Se déconnecter</button>
+  </header>
+
+  <main>
+    <section>
+      <h2>Food</h2>
+      <p>T'attends la famine pour te bouger ?</p>
+      <a href="food.html">
+        <button>Non à la famine</button>
+      </a>
+    </section>
+
+    <section>
+      <h2>Santé</h2>
+      <p>Aies la pêche pas le blues</p>
+      <a href="santé.html">
+        <button>La santé, ça dit quoi ?</button>
+      </a>
+    </section>
+
+    <section>
+      <h2>Handball</h2>
+      <p>On vise le sommet</p>
+      <a href="handball.html">
+        <button>Comme une envie de swinguer ?</button>
+      </a>
+    </section>
+  </main>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIza...",
+      authDomain: "mine-appli.firebaseapp.com",
+      projectId: "mine-appli",
+      storageBucket: "mine-appli.firebasestorage.app",
+      messagingSenderId: "266538682503",
+      appId: "1:266538682503:web:820d7bf66153d76530d022"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+
+    document.addEventListener("DOMContentLoaded", () => {
+
+      // 🔒 Protection de la page
+      firebase.auth().onAuthStateChanged((user) => {
+        if (!user) {
+          window.location.href = "index.html";
+        } else {
+          document.getElementById("welcomeMessage").textContent =
+            "Bienvenue " + user.email;
+        }
+      });
+
+      // 🔁 Logout
+      document.getElementById("logoutBtn").addEventListener("click", () => {
+        firebase.auth().signOut().then(() => {
+          window.location.href = "index.html";
+        });
+      });
+
+    });
+  </script>
+
+</body>
+</html>
