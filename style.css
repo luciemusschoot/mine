@@ -1,0 +1,137 @@
+/* Style global mobile-first */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  line-height: 1.5;
+  background-color: white;
+  color: #333;
+}
+
+.login-page {
+  height: 100vh; /* prend toute la hauteur de l'écran */
+  display: flex;
+  justify-content: center; /* centre horizontalement */
+  align-items: center;     /* centre verticalement */
+  background-color: #f9f9f9;
+}
+
+.login-container {
+  width: 90%;
+  max-width: 400px;
+  background-color: white;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 1px 5px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.login-container input {
+  width: 90%;
+  padding: 1rem;
+  margin: 0.5rem 0;
+  border-radius: 10px;
+  border: 1px solid white;
+  font-size: 1rem;
+}
+
+.login-container .error {
+  color: brown;
+  margin-top: 0.5rem;
+}
+
+/* Header */
+header {
+  background-color: steelblue;
+  color: white;
+  text-align: center;
+  padding: 5rem 0;
+}
+
+.header-food{
+  padding: 1rem 0;
+}
+
+/* Sections */
+main {
+  padding: 1rem;
+}
+
+section {
+  margin-bottom: 1.5rem;
+  background-color: white;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 1px 5px rgba(0,0,0,0.1);
+}
+
+/* Boutons */
+button {
+  display: block;
+  width: 100%;
+  padding: 1rem;
+  margin-top: 1rem;
+  background-color: steelblue;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.deconnexion {
+  background-color: white;
+  color: steelblue;
+  width: fit-content;
+  display: block;      /* ou inline-block */
+  margin: 0 auto;      /* automatique à gauche et à droite */
+}
+
+a{
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: white;
+  padding: 2px;
+  border-radius: 10px;
+}
+
+.fab {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+
+  width: 60px;
+  height: 60px;
+
+  border-radius: 50%;
+  border: none;
+
+  background-color: steelblue;
+  font-size: 24px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  cursor: pointer;
+
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+
+  margin: 0;
+  padding: 0;
+}
+
+.fab svg {
+  width: 33px;
+  height: 33px;
+}
