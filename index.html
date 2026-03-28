@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Connexion</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="steelblue">
+</head>
+<body>
+
+  <div class="login-page">
+      <div class="login-container">
+          <h2>Connexion</h2>
+          <input type="text" id="prenom" placeholder="Prénom">
+          <input type="text" id="username" placeholder="Email">
+          <input type="password" id="password" placeholder="Mot de passe">
+          <button id="loginBtn">Se connecter</button>
+          <p id="error" class="error"></p>
+      </div>
+  </div>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+
+  <script>
+    // Config Firebase
+    const firebaseConfig = {
+      apiKey: "AIzaSyD0okm0KZIZQOad0n0s0S2J8XBtjbyBVsY",
+      authDomain: "mine-appli.firebaseapp.com",
+      projectId: "mine-appli",
+      storageBucket: "mine-appli.appspot.com",
+      messagingSenderId: "266538682503",
+      appId: "1:266538682503:web:820d7bf66153d76530d022"
+    };
+
+    // Initialiser Firebase
+    firebase.initializeApp(firebaseConfig);
+
+    // Redirection automatique si déjà connecté
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        window.location.href = "accueil.html";
+      } else {
+        document.body.style.visibility = "visible";
+      }
+    });
+</script>
+
+  <script src="script.js"></script>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js')
+        .then(() => console.log('Service Worker enregistré'))
+        .catch(err => console.error('Erreur SW:', err));
+    }
+  </script>
+</body>
+</html>
