@@ -1,0 +1,15 @@
+{
+  "name": "MINE",
+  "short_name": "MINE",
+  "start_url": "/mine/index.html",
+  "display": "standalone",
+  "background_color": "steelblue",
+  "theme_color": "steelblue",
+  "icons": [
+    {
+      "src": "icon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}
