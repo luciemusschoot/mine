@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Site avec connexion</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="steelblue">
+</head>
+<body>
+  <header class="header-food">
+    <h1>Food</h1>
+  </header>
+  <main>
+    <section>
+      <h2>Lundi</h2>
+      <h3>Midi :</h3>
+      <form id="wordForm">
+        <input type="text" id="mot" placeholder="Ingrédient">
+        <ul id="listeLundi"></ul>
+        <button type="submit">Ajouter à la liste</button>
+      </form>
+      <h3>Soir :</h3>
+      <form id="wordForm">
+        <input type="text" id="mot" placeholder="Ingrédient">
+        <ul id="listeLundi"></ul>
+        <button type="submit">Ajouter à la liste</button>
+      </form>
+
+      <ul id="listeMots"></ul>
+    </section>
+      <button id="clearBtn" class="fab">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white" viewBox="0 0 24 24">
+          <path d="M9 3V4H4V6H20V4H15V3H9ZM6 7V19C6 20.1 6.9 21 8 21H16C17.1 21 18 20.1 18 19V7H6ZM8 9H10V17H8V9ZM14 9H16V17H14V9Z"/>
+        </svg>
+      </button>
+  </main>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyD0okm0KZIZQOad0n0s0S2J8XBtjbyBVsY",
+      authDomain: "mine-appli.firebaseapp.com",
+      projectId: "mine-appli",
+      storageBucket: "mine-appli.appspot.com",
+      messagingSenderId: "266538682503",
+      appId: "1:266538682503:web:820d7bf66153d76530d022"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        document.body.style.visibility = "visible"; // utilisateur connecté → montrer contenu
+      } else {
+        window.location.href = "index.html"; // pas connecté → rediriger
+      }
+    });
+  </script>
+  <script>
+    const form = document.getElementById("wordForm");
+    const input = document.getElementById("mot");
+    const ul = document.getElementById("listeMots");
+
+    // Charger les mots déjà sauvegardés
+    let mots = JSON.parse(localStorage.getItem("mots")) || [];
+
+    // Fonction pour afficher les mots
+    function afficherMots() {
+      ul.innerHTML = "";
+
+      mots.forEach((motObj, index) => {
+        const li = document.createElement("li");
+
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.checked = motObj.checked;
+
+        const label = document.createElement("label");
+        label.textContent = motObj.text;
+
+        if (motObj.checked) {
+          label.style.textDecoration = "line-through";
+        }
+
+        // Quand on coche/décoche
+        checkbox.addEventListener("change", () => {
+          mots[index].checked = checkbox.checked;
+          localStorage.setItem("mots", JSON.stringify(mots));
+          afficherMots();
+        });
+
+        li.appendChild(checkbox);
+        li.appendChild(label);
+        ul.appendChild(li);
+      });
+    }
+
+    // Ajouter un mot
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const mot = input.value.trim();
+      if (mot !== "") {
+        mots.push({ text: mot, checked: false });
+
+        localStorage.setItem("mots", JSON.stringify(mots));
+        afficherMots();
+
+        input.value = "";
+      }
+    });
+
+    // Charger au démarrage
+    afficherMots();
+  </script>
+  <script>
+    const clearBtn = document.getElementById("clearBtn");
+
+    clearBtn.addEventListener("click", () => {
+      const confirmDelete = confirm("Supprimer toute la liste ?");
+
+      if (confirmDelete) {
+        mots = [];
+        localStorage.removeItem("mots");
+        afficherMots();
+      }
+    });
+  </script>
+</body>
+</html>
