@@ -1,0 +1,202 @@
+/* Style global mobile-first */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  line-height: 1.5;
+  background-color: white;
+  color: #333;
+  visibility: hidden;
+}
+
+.login-page {
+  height: 100vh; /* prend toute la hauteur de l'écran */
+  display: flex;
+  justify-content: center; /* centre horizontalement */
+  align-items: center;     /* centre verticalement */
+  background-color: #f9f9f9;
+}
+
+.login-container {
+  width: 90%;
+  max-width: 400px;
+  background-color: white;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 1px 5px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.login-container input {
+  width: 90%;
+  padding: 1rem;
+  margin: 0.5rem 0;
+  border-radius: 10px;
+  border: 1px solid white;
+  font-size: 1rem;
+}
+
+.login-container .error {
+  color: brown;
+  margin-top: 0.5rem;
+}
+
+/* Header */
+header {
+  background-color: steelblue;
+  color: white;
+  text-align: center;
+  padding: 5rem 0;
+}
+
+.header-food{
+  padding: 1rem 0;
+}
+
+/* Sections */
+main {
+  padding: 1rem;
+}
+
+section {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  padding-top: 1px;
+  border-radius: 10px;
+  box-shadow: 0 1px 5px rgba(0,0,0,0.1);
+}
+
+.couleur {
+  border-color: steelblue;
+  border-style: solid;
+  box-shadow: none;
+}
+
+form {
+  display: flex;
+  align-items: center; /* centre le bouton verticalement */
+  gap: 0.5rem;
+}
+
+form input {
+  flex: 1;
+  height: 40px;
+  padding: 0 12px;
+  font-size: 16px;
+  line-height: 40px; /* centre le texte verticalement */
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+form button {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: steelblue;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  font-size: 22px;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+}
+
+/* Boutons */
+button {
+  display: block;
+  width: 100%;
+  padding: 1rem;
+  margin-top: 1rem;
+  background-color: steelblue;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.deconnexion {
+  background-color: white;
+  color: steelblue;
+  width: fit-content;
+  display: block;      /* ou inline-block */
+  margin: 0 auto;      /* automatique à gauche et à droite */
+}
+
+a{
+  text-decoration: none;
+}
+
+/* Liste de courses verticale */
+#liste-courses {
+  display: flex;
+  flex-direction: column; /* empile verticalement */
+  gap: 0.5rem;           /* espace entre les éléments */
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+#liste-courses li {
+  padding: 0px 0px;
+  background-color: white;
+  border-radius: 5px;
+  display: flex;          /* permet d'ajouter checkbox ou texte aligné */
+  align-items: center;
+  gap: 5px;
+}
+
+/* Autres listes (repas) horizontales */
+ul:not(#liste-courses) {
+  display: flex;        
+  flex-wrap: wrap;      
+  gap: 0.5rem;          
+  padding: 0;
+  margin: 0;
+  margin-bottom: 10px;
+  list-style: none;
+}
+
+ul:not(#liste-courses) li {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 10px;
+  border-radius: 8px;
+  background: #f0f0f0;
+  gap: 5px;
+}
+
+.fab {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+
+  width: 60px;
+  height: 60px;
+
+  border-radius: 50%;
+  border: none;
+
+  background-color: steelblue;
+  font-size: 24px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  cursor: pointer;
+
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+
+  margin: 0;
+  padding: 0;
+}
+
+.fab svg {
+  width: 33px;
+  height: 33px;
+}
