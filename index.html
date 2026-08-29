@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accueil</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="steelblue">
+</head>
+<body>
+  <header>
+    <h1>Lucie MUSSCHOOT</h1>
+    <h3>N°01 - Gardienne</h3>
+  </header>
+  <main>
+    <p class="pdate"><span id="dateDuJour" class="datedujour"></span></p>
+    <section class="season-stats">
+      <h2>Statistiques de saison</h2>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <span class="stat-value" id="totalArrets">0</span>
+          <span class="stat-label">Arrêts au total</span>
+        </div>
+
+        <div class="stat-card">
+          <span class="stat-value" id="pourcentageMoyen">0%</span>
+          <span class="stat-label">Pourcentage d'arrêts moyen par match</span>
+        </div>
+
+        <div class="stat-card">
+          <span class="stat-value" id="moyenneArrets">0</span>
+          <span class="stat-label">Arrêts moyens par match</span>
+        </div>
+      </div>
+    </section>
+    <button id="NouvSeanceBtn">Enregistrer une nouvelle séance</button>
+    <section>
+      <h2>Focus actuel</h2>
+      <p>À faire</p>
+    </section>
+      <button id="journalBtn" class="journal">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white" viewBox="0 0 24 24">
+          <path d="M12 5.5C10.5 4 8.5 3 5 3H3V19H5C8.5 19 10.5 20 12 21C13.5 20 15.5 19 19 19H21V3H19C15.5 3 13.5 4 12 5.5ZM11 18.3C9.5 17.5 7.7 17 5 17H5V5H5.5C8.1 5 9.8 5.7 11 6.8V18.3ZM19 17C16.3 17 14.5 17.5 13 18.3V6.8C14.2 5.7 15.9 5 18.5 5H19V17Z"/>
+        </svg>
+      </button>
+      <button class="trophées">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white" viewBox="0 0 24 24">
+          <path d="M18 4H6V7C6 10.3 8.1 13.1 11 13.8V17H8V20H16V17H13V13.8C15.9 13.1 18 10.3 18 7V4ZM8 7V6H10V8C10 9.2 9.5 10.3 8.7 11C8.3 10.2 8 9.2 8 7ZM16 7C16 9.2 15.7 10.2 15.3 11C14.5 10.3 14 9.2 14 8V6H16V7Z"/>
+        </svg>
+      </button>
+      <form id="formulaireSeance" class="modal">
+        <div class="modal-content">
+
+          <h2>Nouvelle séance</h2>
+
+          <div class="champ">
+            <input type="date" id="dateSeance" required>
+          </div>
+
+        <div class="type-seance">
+          <label>
+            <input type="radio" name="typeSeance" value="entrainement" required>
+            Entraînement
+          </label>
+
+          <label>
+            <input type="radio" name="typeSeance" value="match">
+            Match
+          </label>
+        </div>
+
+                  <!-- Champs spécifiques aux matchs -->
+        <div id="champsMatch" class="champs-match" style="display: none;">
+
+        <div class="champ">
+          <select id="adversaire" required>
+            <option value="">⎼ Choisir un adversaire ⎼</option>
+            <option value="Biache-Saint-Vaast">Biache-Saint-Vaast</option>
+            <option value="Carvin">Carvin</option>
+            <option value="Libercourt">Libercourt</option>
+            <option value="Noyelles-Godault">Noyelles-Godault</option>
+          </select>
+        </div>
+
+          <div class="champ">
+            <div class="score">
+
+              <!-- Notre score -->
+              <div class="score-select notre-score">
+                <select id="scoreNous">
+                  <option value="0">0</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                  <option value="11">11</option>
+                  <option value="12">12</option>
+                  <option value="13">13</option>
+                  <option value="14">14</option>
+                  <option value="15">15</option>
+                  <option value="16">16</option>
+                  <option value="17">17</option>
+                  <option value="18">18</option>
+                  <option value="19">19</option>
+                  <option value="20" selected>20</option>
+                  <option value="21">21</option>
+                  <option value="22">22</option>
+                  <option value="23">23</option>
+                  <option value="24">24</option>
+                  <option value="25">25</option>
+                  <option value="26">26</option>
+                  <option value="27">27</option>
+                  <option value="28">28</option>
+                  <option value="29">29</option>
+                  <option value="30">30</option>
+                  <option value="31">31</option>
+                  <option value="32">32</option>
+                  <option value="33">33</option>
+                  <option value="34">34</option>
+                  <option value="35">35</option>
+                  <option value="36">36</option>
+                  <option value="37">37</option>
+                  <option value="38">38</option>
+                  <option value="39">39</option>
+                  <option value="40">40</option>
+                  <option value="41">41</option>
+                  <option value="42">42</option>
+                  <option value="43">43</option>
+                  <option value="44">44</option>
+                  <option value="45">45</option>
+                  <option value="46">46</option>
+                  <option value="47">47</option>
+                  <option value="48">48</option>
+                  <option value="49">49</option>
+                  <option value="50">50</option>
+                </select>
+              </div>
+
+              <span class="tiret-score">⎼</span>
+
+              <!-- Score adversaire -->
+              <div class="score-select adversaire-score">
+                <select id="scoreAdversaire">
+                  <option value="0">0</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                  <option value="11">11</option>
+                  <option value="12">12</option>
+                  <option value="13">13</option>
+                  <option value="14">14</option>
+                  <option value="15">15</option>
+                  <option value="16">16</option>
+                  <option value="17">17</option>
+                  <option value="18">18</option>
+                  <option value="19">19</option>
+                  <option value="20" selected>20</option>
+                  <option value="21">21</option>
+                  <option value="22">22</option>
+                  <option value="23">23</option>
+                  <option value="24">24</option>
+                  <option value="25">25</option>
+                  <option value="26">26</option>
+                  <option value="27">27</option>
+                  <option value="28">28</option>
+                  <option value="29">29</option>
+                  <option value="30">30</option>
+                  <option value="31">31</option>
+                  <option value="32">32</option>
+                  <option value="33">33</option>
+                  <option value="34">34</option>
+                  <option value="35">35</option>
+                  <option value="36">36</option>
+                  <option value="37">37</option>
+                  <option value="38">38</option>
+                  <option value="39">39</option>
+                  <option value="40">40</option>
+                  <option value="41">41</option>
+                  <option value="42">42</option>
+                  <option value="43">43</option>
+                  <option value="44">44</option>
+                  <option value="45">45</option>
+                  <option value="46">46</option>
+                  <option value="47">47</option>
+                  <option value="48">48</option>
+                  <option value="49">49</option>
+                  <option value="50">50</option>
+                </select>
+              </div>
+
+            </div>
+          </div>
+            <div class="stats-match">
+
+              <div class="stat-ligne">
+                <input
+                  type="number"
+                  id="nombreArrets"
+                  min="0"
+                  placeholder="0"
+                >
+                <span>arrêts</span>
+              </div>
+
+              <div class="stat-ligne">
+                <input
+                  type="text"
+                  id="statsArrets"
+                  readonly
+                  placeholder="0%"
+                >
+                <span>de buts arrêtés</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="ressenti">
+            <div class="etoiles" id="ressenti">
+              <span data-value="1">★</span>
+              <span data-value="2">★</span>
+              <span data-value="3">★</span>
+              <span data-value="4">★</span>
+              <span data-value="5">★</span>
+            </div>
+          </div>
+
+          <textarea id="commentaire" placeholder="..." class="commentaire"></textarea>
+
+          <button id="enregistrerSeance">Enregistrer</button>
+          <button id="fermerFormulaire" class='fermerformulaire'>Annuler</button>
+
+        </div>
+      </form>
+  </main>
+</body>
+<script>
+  // Date du jour
+  const date = new Date();
+
+  document.getElementById("dateDuJour").textContent =
+    date.toLocaleDateString("fr-FR", {
+      day: "numeric",
+      month: "long",
+      year: "numeric"
+    });
+
+
+  // Éléments du formulaire
+  const bouton = document.getElementById("NouvSeanceBtn");
+  const formulaire = document.getElementById("formulaireSeance");
+  const fermer = document.getElementById("fermerFormulaire");
+  const enregistrer = document.getElementById("enregistrerSeance");
+  const etoiles = document.querySelectorAll("#ressenti span");
+
+  // Champs spécifiques aux matchs
+  const champsMatch = document.getElementById("champsMatch");
+  const adversaire = document.getElementById("adversaire");
+  const scoreNous = document.getElementById("scoreNous");
+  const scoreAdversaire = document.getElementById("scoreAdversaire");
+  const nombreArrets = document.getElementById("nombreArrets");
+  const statsArrets = document.getElementById("statsArrets");
+
+  const typesSeance = document.querySelectorAll('input[name="typeSeance"]');
+
+
+  // Afficher / cacher les champs du match
+  typesSeance.forEach(type => {
+
+    type.addEventListener("change", () => {
+
+      if (type.value === "match" && type.checked) {
+        champsMatch.style.display = "block";
+
+        adversaire.required = true;
+        scoreNous.required = true;
+        scoreAdversaire.required = true;
+        nombreArrets.required = true;
+
+      } else if (type.value === "entrainement" && type.checked) {
+        champsMatch.style.display = "none";
+
+        adversaire.required = false;
+        scoreNous.required = false;
+        scoreAdversaire.required = false;
+        nombreArrets.required = false;
+
+        // Nettoyage des champs
+        adversaire.value = "";
+        scoreNous.value = "";
+        scoreAdversaire.value = "";
+        nombreArrets.value = "";
+        statsArrets.value = "";
+      }
+
+    });
+
+  });
+
+
+  // Calcul automatique du pourcentage d'arrêts
+  function calculerStatsArrets() {
+
+    const arrets = Number(nombreArrets.value);
+    const butsEncaisses = Number(scoreAdversaire.value);
+
+    if (
+      nombreArrets.value !== "" &&
+      scoreAdversaire.value !== ""
+    ) {
+
+      const totalTirs = arrets + butsEncaisses;
+
+      if (totalTirs > 0) {
+
+        const pourcentage =
+          (arrets / totalTirs) * 100;
+
+        statsArrets.value =
+          pourcentage.toFixed(1) + " %";
+
+      } else {
+        statsArrets.value = "0 %";
+      }
+
+    } else {
+      statsArrets.value = "";
+    }
+  }
+
+
+  // Recalculer dès qu'une valeur change
+  nombreArrets.addEventListener("input", calculerStatsArrets);
+  scoreAdversaire.addEventListener("input", calculerStatsArrets);
+
+  // Ouvrir le formulaire
+  bouton.addEventListener("click", () => {
+    formulaire.reset();
+
+    // Reset des étoiles
+    etoiles.forEach(etoile => {
+      etoile.classList.remove("active");
+    });
+
+    // Cacher les champs du match
+    champsMatch.style.display = "none";
+
+    formulaire.style.display = "flex";
+  });
+
+  // Fermer / annuler
+  fermer.addEventListener("click", () => {
+    formulaire.reset();
+
+    // Reset des étoiles
+    etoiles.forEach(etoile => {
+      etoile.classList.remove("active");
+    });
+
+    // Cacher les champs du match
+    champsMatch.style.display = "none";
+
+    formulaire.style.display = "none";
+  });
+
+
+  // Sélection des étoiles
+  etoiles.forEach(etoile => {
+
+    etoile.addEventListener("click", () => {
+
+      const valeur = etoile.dataset.value;
+
+      etoiles.forEach(e => {
+        e.classList.toggle(
+          "active",
+          e.dataset.value <= valeur
+        );
+      });
+
+    });
+
+  });
+
+
+  // Vérification avant enregistrement
+  enregistrer.addEventListener("click", (event) => {
+
+  const etoilesActives =
+    document.querySelectorAll("#ressenti span.active");
+
+  const typeSeance =
+    document.querySelector('input[name="typeSeance"]:checked');
+
+  const dateSeance =
+    document.getElementById("dateSeance").value;
+
+  const commentaire =
+    document.getElementById("commentaire").value;
+
+  // Informations du match
+  let infosMatch = null;
+
+  if (typeSeance.value === "match") {
+
+    const adversaireValue = adversaire.value.trim();
+    const scoreNousValue = Number(scoreNous.value);
+    const scoreAdversaireValue = Number(scoreAdversaire.value);
+    const nombreArretsValue = Number(nombreArrets.value);
+
+    // Vérification
+    if (
+      !adversaireValue ||
+      scoreNous.value === "" ||
+      scoreAdversaire.value === "" ||
+      nombreArrets.value === ""
+    ) {
+      event.preventDefault();
+      alert("Complète toutes les informations du match.");
+      return;
+    }
+
+    const totalTirs =
+      nombreArretsValue + scoreAdversaireValue;
+
+    const pourcentageArrets =
+      totalTirs > 0
+        ? (nombreArretsValue / totalTirs) * 100
+        : 0;
+
+    infosMatch = {
+      adversaire: adversaireValue,
+      score: `${scoreNousValue}-${scoreAdversaireValue}`,
+      scoreNous: scoreNousValue,
+      scoreAdversaire: scoreAdversaireValue,
+      nombreArrets: nombreArretsValue,
+      pourcentageArrets: Number(pourcentageArrets.toFixed(1))
+    };
+  }
+
+  // Vérification de la note
+  if (etoilesActives.length === 0) {
+    event.preventDefault();
+    alert("Donne une note à ta séance.");
+    return;
+  }
+
+  // Récupérer les anciennes séances
+  const seances =
+    JSON.parse(localStorage.getItem("seances")) || [];
+
+
+  // Créer la nouvelle séance
+  const nouvelleSeance = {
+    date: dateSeance,
+    type: typeSeance.value,
+    note: etoilesActives.length,
+    commentaire: commentaire,
+    match: infosMatch
+  };
+
+  // Ajouter la séance
+  seances.push(nouvelleSeance);
+
+  // Sauvegarder
+  localStorage.setItem(
+    "seances",
+    JSON.stringify(seances)
+  );
+
+  // Mettre à jour les statistiques de saison
+  calculerStatsSaison();
+
+  // Fermer et nettoyer
+  formulaire.reset();
+
+  etoiles.forEach(etoile => {
+    etoile.classList.remove("active");
+  });
+
+  formulaire.style.display = "none";
+
+});
+// ================================
+// STATISTIQUES AUTOMATIQUES DE SAISON
+// ================================
+
+function calculerStatsSaison() {
+
+  // Récupérer toutes les séances enregistrées
+  const seances = JSON.parse(localStorage.getItem("seances")) || [];
+
+  // Garder uniquement les matchs
+  const matchs = seances.filter(
+    seance => seance.type === "match" && seance.match
+  );
+
+  // Éléments HTML
+  const totalArretsElement = document.getElementById("totalArrets");
+  const pourcentageMoyenElement = document.getElementById("pourcentageMoyen");
+  const moyenneArretsElement = document.getElementById("moyenneArrets");
+
+  // Aucun match enregistré
+  if (matchs.length === 0) {
+    totalArretsElement.textContent = "0";
+    pourcentageMoyenElement.textContent = "0%";
+    moyenneArretsElement.textContent = "0";
+    return;
+  }
+
+  // Total des arrêts
+  const totalArrets = matchs.reduce(
+    (total, seance) => total + Number(seance.match.nombreArrets || 0),
+    0
+  );
+
+  // Moyenne d'arrêts par match
+  const moyenneArrets = totalArrets / matchs.length;
+
+  // Moyenne des pourcentages d'arrêts
+  const pourcentageMoyen =
+    matchs.reduce(
+      (total, seance) =>
+        total + Number(seance.match.pourcentageArrets || 0),
+      0
+    ) / matchs.length;
+
+  // Affichage
+  totalArretsElement.textContent = totalArrets;
+
+  pourcentageMoyenElement.textContent =
+    pourcentageMoyen.toFixed(1).replace(".", ",") + "%";
+
+  moyenneArretsElement.textContent =
+    moyenneArrets.toFixed(1).replace(".", ",");
+}
+
+// Calculer les statistiques au chargement de la page
+calculerStatsSaison();
+</script>
+<script>
+  document.getElementById("journalBtn").addEventListener("click", () => {
+    window.location.href = "journal.html";
+  });
+</script>
+</html>
