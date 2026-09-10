@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accueil</title>
+  <link rel="stylesheet" href="style.css">
+  <script>
+    if (localStorage.getItem("modeSombre") === "true") {
+      document.documentElement.classList.add("dark");
+    }
+  </script>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="steelblue">
+</head>
+<body>
+  <header>
+    <p><span id="dateDuJour" class="datedujour"></span></p>
+    <h1>Lucie MUSSCHOOT</h1>
+    <h3>N°01 - Gardienne</h3>
+  </header>
+  <main>
+<section class="niveau-section">
+  <div class="niveau-header">
+    <h2 id="niveauJoueur">Niveau 1</h2>
+  </div>
+
+  <div class="barre-xp">
+    <div id="progressionXP" class="progression-xp"></div>
+  </div>
+
+  <p id="prochainNiveau" class="prochain-niveau">
+    20 XP pour le niveau suivant
+  </p>
+</section>
+    <button id="NouvSeanceBtnTexte">Enregistrer une nouvelle séance</button>
+    <p class="trait">____________________________</p>
+    <section class="season-stats">
+      <h2>Statistiques de saison</h2>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <span class="stat-value" id="totalArrets">0</span>
+          <span class="stat-label">Arrêts au total</span>
+        </div>
+
+        <div class="stat-card">
+          <span class="stat-value" id="pourcentageMoyen">0%</span>
+          <span class="stat-label">Pourcentage d'arrêts moyen par match</span>
+        </div>
+
+        <div class="stat-card">
+          <span class="stat-value" id="moyenneArrets">0</span>
+          <span class="stat-label">Arrêts moyens par match</span>
+        </div>
+      </div>
+    </section>
+    <section class="focus-section">
+      <h2>Tous les focus</h2>
+
+      <div id="listeFocus"></div>
+
+      <div class="ajout-focus">
+        <input
+          type="text"
+          id="nouveauFocus"
+          placeholder="Ajouter un nouveau focus..."
+        >
+
+        <button type="button" id="ajouterFocus">
+          Ajouter
+        </button>
+      </div>
+      <form id="formulaireSeance" class="modal">
+        <div class="modal-content">
+
+          <h2>Nouvelle séance</h2>
+
+          <div class="champ">
+            <input type="date" id="dateSeance" required>
+          </div>
+
+        <div class="type-seance">
+          <label>
+            <input type="radio" name="typeSeance" value="entrainement" required>
+            Entraînement
+          </label>
+
+          <label>
+            <input type="radio" name="typeSeance" value="match">
+            Match
+          </label>
+        </div>
+
+        <div class="champ">
+          <select id="focusSeance" required>
+            <option value="">⎼ Choisir un focus ⎼</option>
+          </select>
+        </div>
+
+                  <!-- Champs spécifiques aux matchs -->
+        <div id="champsMatch" class="champs-match" style="display: none;">
+
+        <div class="champ">
+          <select id="adversaire" required>
+            <option value="">⎼ Choisir un adversaire ⎼</option>
+            <option value="Arras">Arras</option>
+            <option value="Auchel">Auchel</option>
+            <option value="Béthune">Béthune</option>
+            <option value="Biache-Saint-Vaast">Biache-Saint-Vaast</option>
+            <option value="Calais">Calais</option>
+            <option value="Carvin">Carvin</option>
+            <option value="Givenchy-en-Gohelle">Givenchy-en-Gohelle</option>
+            <option value="Libercourt / Noyelles">Libercourt / Noyelles</option>
+            <option value="Longuenesse">Longuenesse</option>
+            <option value="Opale Sud">Opale Sud</option>
+          </select>
+        </div>
+
+          <div class="champ">
+            <div class="score">
+
+<!-- Notre score -->
+<div class="score-select notre-score">
+  <input
+    type="number"
+    id="scoreNous"
+    required
+    inputmode="numeric"
+  >
+</div>
+
+<span class="tiret-score">⎼</span>
+
+<!-- Score adversaire -->
+<div class="score-select adversaire-score">
+  <input
+    type="number"
+    id="scoreAdversaire"
+    required
+    inputmode="numeric"
+  >
+</div>
+
+</div>
+          </div>
+            <div class="stats-match">
+
+              <div class="stat-ligne">
+                <input
+                  type="number"
+                  id="nombreArrets"
+                  min="0"
+                  placeholder="0"
+                >
+                <span>arrêts</span>
+              </div>
+
+              <div class="stat-ligne">
+                <input
+                  type="text"
+                  id="statsArrets"
+                  readonly
+                  placeholder="0%"
+                >
+                <span>de buts arrêtés</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="ressenti">
+            <div class="etoiles" id="ressenti">
+              <span data-value="1">★</span>
+              <span data-value="2">★</span>
+              <span data-value="3">★</span>
+              <span data-value="4">★</span>
+              <span data-value="5">★</span>
+            </div>
+          </div>
+
+          <textarea id="commentaire" placeholder="..." class="commentaire"></textarea>
+
+          <button id="enregistrerSeance">Enregistrer</button>
+          <button id="fermerFormulaire" class='fermerformulaire'>Annuler</button>
+
+        </div>
+      </form>
+  </main>
+<nav class="bottom-nav">
+
+  <button id="homeBtn" class="nav-item active" aria-label="Accueil">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3z"/>
+    </svg>
+    <span class="nav-label">Accueil</span>
+  </button>
+
+  <button id="journalBtn" class="nav-item" aria-label="Journal">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M12 5.5C10.5 4 8.5 3 5 3H3V19H5C8.5 19 10.5 20 12 21C13.5 20 15.5 19 19 19H21V3H19C15.5 3 13.5 4 12 5.5ZM11 18.3C9.5 17.5 7.7 17 5 17H5V5H5.5C8.1 5 9.8 5.7 11 6.8V18.3ZM19 17C16.3 17 14.5 17.5 13 18.3V6.8C14.2 5.7 15.9 5 18.5 5H19V17Z"/>
+    </svg>
+    <span class="nav-label">Journal</span>
+  </button>
+
+  <button id="NouvSeanceBtn" class="nav-item nav-item-add" aria-label="Ajouter une séance">
+    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="white" viewBox="0 0 24 24">
+      <path d="M11 5h2v6h6v2h-6v6h-2v-6H5v-2h6V5z"/>
+    </svg>
+  </button>
+
+  <button id="tropheesBtn" class="nav-item" aria-label="Trophées">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M18 4H6V7C6 10.3 8.1 13.1 11 13.8V17H8V20H16V17H13V13.8C15.9 13.1 18 10.3 18 7V4ZM8 7V6H10V8C10 9.2 9.5 10.3 8.7 11C8.3 10.2 8 9.2 8 7ZM16 7C16 9.2 15.7 10.2 15.3 11C14.5 10.3 14 9.2 14 8V6H16V7Z"/>
+    </svg>
+    <span class="nav-label">Trophées</span>
+  </button>
+
+  <button id="parametresBtn" class="nav-item" aria-label="Paramètres">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M19.14 12.94c.04-.31.06-.63.06-.94s-.02-.63-.06-.94l2.03-1.58a.5.5 0 0 0 .12-.64l-1.92-3.32a.5.5 0 0 0-.6-.22l-2.39.96a7.03 7.03 0 0 0-1.62-.94l-.36-2.54A.5.5 0 0 0 14 2h-4a.5.5 0 0 0-.5.42l-.36 2.54c-.59.24-1.13.56-1.62.94l-2.39-.96a.5.5 0 0 0-.6.22L2.61 8.48a.5.5 0 0 0 .12.64l2.03 1.58c-.04.31-.06.63-.06.94s.02.63.06.94l-2.03 1.58a.5.5 0 0 0-.12.64l1.92 3.32c.14.24.42.32.6.22l2.39-.96c.49.38 1.03.7 1.62.94l.36 2.54c.05.28.27.42.5.42h4c.23 0 .45-.14.5-.42l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.24.1.5 0 .6-.22l1.92-3.32a.5.5 0 0 0-.12-.64l-2.03-1.58ZM12 15.5A3.5 3.5 0 1 1 12 8.5a3.5 3.5 0 0 1 0 7Z"/>
+    </svg>
+    <span class="nav-label">Paramètres</span>
+  </button>
+
+</nav>
+</body>
+<script>
+  // Date du jour
+  const date = new Date();
+
+  document.getElementById("dateDuJour").textContent =
+    date.toLocaleDateString("fr-FR", {
+      day: "numeric",
+      month: "long",
+      year: "numeric"
+    });
+
+
+  // Éléments du formulaire
+  const bouton = document.getElementById("NouvSeanceBtn");
+  const boutonTexte = document.getElementById("NouvSeanceBtnTexte");
+  const formulaire = document.getElementById("formulaireSeance");
+  const fermer = document.getElementById("fermerFormulaire");
+  const enregistrer = document.getElementById("enregistrerSeance");
+  const etoiles = document.querySelectorAll("#ressenti span");
+
+  // Champs spécifiques aux matchs
+  const champsMatch = document.getElementById("champsMatch");
+  const adversaire = document.getElementById("adversaire");
+  const scoreNous = document.getElementById("scoreNous");
+  const scoreAdversaire = document.getElementById("scoreAdversaire");
+  const nombreArrets = document.getElementById("nombreArrets");
+  const statsArrets = document.getElementById("statsArrets");
+
+  const typesSeance = document.querySelectorAll('input[name="typeSeance"]');
+
+
+  // Afficher / cacher les champs du match
+  typesSeance.forEach(type => {
+
+    type.addEventListener("change", () => {
+
+      if (type.value === "match" && type.checked) {
+        champsMatch.style.display = "block";
+
+        adversaire.required = true;
+        scoreNous.required = true;
+        scoreAdversaire.required = true;
+        nombreArrets.required = true;
+
+      } else if (type.value === "entrainement" && type.checked) {
+        champsMatch.style.display = "none";
+
+        adversaire.required = false;
+        scoreNous.required = false;
+        scoreAdversaire.required = false;
+        nombreArrets.required = false;
+
+        // Nettoyage des champs
+        adversaire.value = "";
+        scoreNous.value = "";
+        scoreAdversaire.value = "";
+        nombreArrets.value = "";
+        statsArrets.value = "";
+      }
+
+    });
+
+  });
+
+
+  // Calcul automatique du pourcentage d'arrêts
+  function calculerStatsArrets() {
+
+    const arrets = Number(nombreArrets.value);
+    const butsEncaisses = Number(scoreAdversaire.value);
+
+    if (
+      nombreArrets.value !== "" &&
+      scoreAdversaire.value !== ""
+    ) {
+
+      const totalTirs = arrets + butsEncaisses;
+
+      if (totalTirs > 0) {
+
+        const pourcentage =
+          (arrets / totalTirs) * 100;
+
+        statsArrets.value =
+          pourcentage.toFixed(1) + " %";
+
+      } else {
+        statsArrets.value = "0 %";
+      }
+
+    } else {
+      statsArrets.value = "";
+    }
+  }
+
+
+  // Recalculer dès qu'une valeur change
+  nombreArrets.addEventListener("input", calculerStatsArrets);
+  scoreAdversaire.addEventListener("input", calculerStatsArrets);
+
+  // Ouvrir le formulaire
+  function ouvrirFormulaire() {
+    formulaire.reset();
+
+    // Reset des étoiles
+    etoiles.forEach(etoile => {
+      etoile.classList.remove("active");
+    });
+
+    // Cacher les champs du match
+    champsMatch.style.display = "none";
+
+    formulaire.style.display = "flex";
+
+    // Bloque le scroll de la page en fond
+    document.body.classList.add("no-scroll");
+  }
+
+  bouton.addEventListener("click", ouvrirFormulaire);
+  boutonTexte.addEventListener("click", ouvrirFormulaire);
+
+  // Si on arrive depuis une autre page avec ?ouvrir=seance, on ouvre direct
+  const parametresURL = new URLSearchParams(window.location.search);
+
+  if (parametresURL.get("ouvrir") === "seance") {
+    ouvrirFormulaire();
+
+    // Nettoie l'URL pour que le formulaire ne se rouvre pas
+    // si l'utilisateur recharge la page ensuite
+    window.history.replaceState({}, "", "index.html");
+  }
+
+  // Fermer / annuler
+  fermer.addEventListener("click", () => {
+    formulaire.reset();
+
+    // Reset des étoiles
+    etoiles.forEach(etoile => {
+      etoile.classList.remove("active");
+    });
+
+    // Cacher les champs du match
+    champsMatch.style.display = "none";
+
+    formulaire.style.display = "none";
+
+    // Réactive le scroll de la page
+    document.body.classList.remove("no-scroll");
+  });
+
+  // Sélection des étoiles
+  etoiles.forEach(etoile => {
+
+    etoile.addEventListener("click", () => {
+
+      const valeur = etoile.dataset.value;
+
+      etoiles.forEach(e => {
+        e.classList.toggle(
+          "active",
+          e.dataset.value <= valeur
+        );
+      });
+
+    });
+
+  });
+
+
+  // Vérification avant enregistrement
+  enregistrer.addEventListener("click", (event) => {
+
+  const etoilesActives =
+    document.querySelectorAll("#ressenti span.active");
+
+  const typeSeance =
+    document.querySelector('input[name="typeSeance"]:checked');
+
+  const dateSeance =
+    document.getElementById("dateSeance").value;
+
+  const commentaire =
+    document.getElementById("commentaire").value;
+
+  // Informations du match
+  let infosMatch = null;
+
+  if (typeSeance.value === "match") {
+
+    const adversaireValue = adversaire.value.trim();
+    const scoreNousValue = Number(scoreNous.value);
+    const scoreAdversaireValue = Number(scoreAdversaire.value);
+    const nombreArretsValue = Number(nombreArrets.value);
+
+    // Vérification
+    if (
+      !adversaireValue ||
+      scoreNous.value === "" ||
+      scoreAdversaire.value === "" ||
+      nombreArrets.value === ""
+    ) {
+      event.preventDefault();
+      alert("Complète toutes les informations du match.");
+      return;
+    }
+
+    const totalTirs =
+      nombreArretsValue + scoreAdversaireValue;
+
+    const pourcentageArrets =
+      totalTirs > 0
+        ? (nombreArretsValue / totalTirs) * 100
+        : 0;
+
+    infosMatch = {
+      adversaire: adversaireValue,
+      score: `${scoreNousValue}-${scoreAdversaireValue}`,
+      scoreNous: scoreNousValue,
+      scoreAdversaire: scoreAdversaireValue,
+      nombreArrets: nombreArretsValue,
+      pourcentageArrets: Number(pourcentageArrets.toFixed(1))
+    };
+  }
+
+  // Vérification de la note
+  if (etoilesActives.length === 0) {
+    event.preventDefault();
+    alert("Donne une note à ta séance.");
+    return;
+  }
+
+  // Récupérer les anciennes séances
+  const seances =
+    JSON.parse(localStorage.getItem("seances")) || [];
+
+
+  // Créer la nouvelle séance
+  const nouvelleSeance = {
+    date: dateSeance,
+    type: typeSeance.value,
+    focus: focusSeance.value,
+    note: etoilesActives.length,
+    commentaire: commentaire,
+    match: infosMatch
+  };
+
+  // Ajouter la séance
+  seances.push(nouvelleSeance);
+
+  // Sauvegarder
+  localStorage.setItem(
+    "seances",
+    JSON.stringify(seances)
+  );
+
+  // Mettre à jour les statistiques de saison
+  calculerStatsSaison();
+
+  // Fermer et nettoyer
+  formulaire.reset();
+
+  etoiles.forEach(etoile => {
+    etoile.classList.remove("active");
+  });
+
+  formulaire.style.display = "none";
+
+  // Réactive le scroll de la page
+  document.body.classList.remove("no-scroll");
+
+});
+
+// ================================
+// STATISTIQUES AUTOMATIQUES DE SAISON
+// ================================
+
+function calculerStatsSaison() {
+
+  // Récupérer toutes les séances enregistrées
+  const seances = JSON.parse(localStorage.getItem("seances")) || [];
+
+  // Garder uniquement les matchs
+  const matchs = seances.filter(
+    seance => seance.type === "match" && seance.match
+  );
+
+  // Éléments HTML
+  const totalArretsElement = document.getElementById("totalArrets");
+  const pourcentageMoyenElement = document.getElementById("pourcentageMoyen");
+  const moyenneArretsElement = document.getElementById("moyenneArrets");
+
+  // Aucun match enregistré
+  if (matchs.length === 0) {
+    totalArretsElement.textContent = "0";
+    pourcentageMoyenElement.textContent = "0%";
+    moyenneArretsElement.textContent = "0";
+    return;
+  }
+
+  // Total des arrêts
+  const totalArrets = matchs.reduce(
+    (total, seance) => total + Number(seance.match.nombreArrets || 0),
+    0
+  );
+
+  // Moyenne d'arrêts par match
+  const moyenneArrets = totalArrets / matchs.length;
+
+  // Moyenne des pourcentages d'arrêts
+  const pourcentageMoyen =
+    matchs.reduce(
+      (total, seance) =>
+        total + Number(seance.match.pourcentageArrets || 0),
+      0
+    ) / matchs.length;
+
+  // Affichage
+  totalArretsElement.textContent = totalArrets;
+
+  pourcentageMoyenElement.textContent =
+    pourcentageMoyen.toFixed(1).replace(".", ",") + "%";
+
+  moyenneArretsElement.textContent =
+    moyenneArrets.toFixed(1).replace(".", ",");
+}
+
+// Calculer les statistiques au chargement de la page
+calculerStatsSaison();
+
+// ================================
+// GESTION DES FOCUS
+// ================================
+
+const listeFocusElement = document.getElementById("listeFocus");
+const nouveauFocusInput = document.getElementById("nouveauFocus");
+const ajouterFocusBtn = document.getElementById("ajouterFocus");
+const focusSeance = document.getElementById("focusSeance");
+
+
+// Récupérer les focus enregistrés
+function recupererFocus() {
+  return JSON.parse(localStorage.getItem("focus")) || [];
+}
+
+
+// Sauvegarder les focus
+function sauvegarderFocus(focus) {
+  localStorage.setItem("focus", JSON.stringify(focus));
+}
+
+
+// Afficher les focus dans "Focus actuel"
+function afficherFocus() {
+
+  const focus = recupererFocus();
+
+  listeFocusElement.innerHTML = "";
+
+  if (focus.length === 0) {
+    listeFocusElement.innerHTML =
+      "<p class='aucun-focus'>Aucun focus enregistré.</p>";
+    return;
+  }
+
+  focus.forEach((nomFocus, index) => {
+
+    const ligne = document.createElement("div");
+    ligne.className = "focus-item";
+
+    ligne.innerHTML = `
+      <span>${nomFocus}</span>
+
+      <button
+        type="button"
+        class="supprimer-focus"
+        data-index="${index}"
+        aria-label="Supprimer le focus"
+      >
+        ×
+      </button>
+    `;
+
+    listeFocusElement.appendChild(ligne);
+  });
+
+  // Boutons supprimer
+  document.querySelectorAll(".supprimer-focus").forEach(button => {
+
+    button.addEventListener("click", () => {
+
+      const index = Number(button.dataset.index);
+
+      const focus = recupererFocus();
+
+      focus.splice(index, 1);
+
+      sauvegarderFocus(focus);
+
+      afficherFocus();
+      remplirSelectFocus();
+    });
+  });
+}
+
+
+// Remplir la liste déroulante du formulaire
+function remplirSelectFocus() {
+
+  const focus = recupererFocus();
+
+  focusSeance.innerHTML = `
+    <option value="">⎼ Choisir un focus ⎼</option>
+  `;
+
+  focus.forEach(nomFocus => {
+
+    const option = document.createElement("option");
+
+    option.value = nomFocus;
+    option.textContent = nomFocus;
+
+    focusSeance.appendChild(option);
+  });
+}
+
+
+// Ajouter un focus
+ajouterFocusBtn.addEventListener("click", () => {
+
+  const nomFocus = nouveauFocusInput.value.trim();
+
+  if (!nomFocus) {
+    alert("Écris un focus avant de l'ajouter.");
+    return;
+  }
+
+  const focus = recupererFocus();
+
+  // Éviter les doublons
+  if (focus.includes(nomFocus)) {
+    alert("Ce focus existe déjà.");
+    return;
+  }
+
+  focus.push(nomFocus);
+
+  sauvegarderFocus(focus);
+
+  nouveauFocusInput.value = "";
+
+  afficherFocus();
+  remplirSelectFocus();
+});
+
+
+// Ajouter avec la touche Entrée
+nouveauFocusInput.addEventListener("keydown", event => {
+
+  if (event.key === "Enter") {
+    event.preventDefault();
+    ajouterFocusBtn.click();
+  }
+
+});
+
+
+// Affichage initial
+afficherFocus();
+remplirSelectFocus();
+
+// ================================
+// NIVEAU ET BARRE D'XP
+// ================================
+
+function calculerXP() {
+
+  const seances =
+    JSON.parse(localStorage.getItem("seances")) || [];
+
+  let xp = 0;
+
+  seances.forEach(seance => {
+
+    if (seance.type === "entrainement") {
+      xp += 10;
+    }
+
+    if (seance.type === "match") {
+      xp += 25;
+    }
+
+  });
+
+  return xp;
+}
+
+
+function obtenirInfosNiveau(xp) {
+
+  const niveaux = [
+    { niveau: 1, xp: 0 },
+    { niveau: 2, xp: 50 },
+    { niveau: 3, xp: 150 },
+    { niveau: 4, xp: 300 },
+    { niveau: 5, xp: 500 },
+    { niveau: 6, xp: 750 },
+    { niveau: 7, xp: 1050 },
+    { niveau: 8, xp: 1400 },
+    { niveau: 9, xp: 1800 },
+    { niveau: 10, xp: 2250 },
+    { niveau: 11, xp: 2750 },
+    { niveau: 12, xp: 3300 },
+    { niveau: 13, xp: 3900 },
+    { niveau: 14, xp: 4550 },
+    { niveau: 15, xp: 5250 },
+    { niveau: 16, xp: 6000 },
+    { niveau: 17, xp: 6800 },
+    { niveau: 18, xp: 7650 },
+    { niveau: 19, xp: 8550 },
+    { niveau: 20, xp: 9500 },
+    { niveau: 21, xp: 10500 },
+    { niveau: 22, xp: 11550 },
+    { niveau: 23, xp: 12650 },
+    { niveau: 24, xp: 13800 },
+    { niveau: 25, xp: 15000 },
+    { niveau: 26, xp: 16250 },
+    { niveau: 27, xp: 17550 },
+    { niveau: 28, xp: 18900 },
+    { niveau: 29, xp: 20300 },
+    { niveau: 30, xp: 21750 }
+  ];
+
+  let niveauActuel = niveaux[0];
+  let prochainNiveau = null;
+
+  for (let i = 0; i < niveaux.length; i++) {
+
+    if (xp >= niveaux[i].xp) {
+      niveauActuel = niveaux[i];
+    }
+
+    if (xp < niveaux[i].xp) {
+      prochainNiveau = niveaux[i];
+      break;
+    }
+  }
+
+  return {
+    niveauActuel,
+    prochainNiveau
+  };
+}
+
+function afficherNiveau() {
+
+  const xp = calculerXP();
+
+  const infos = obtenirInfosNiveau(xp);
+
+  const niveau = infos.niveauActuel.niveau;
+
+  // Afficher le niveau
+  document.getElementById("niveauJoueur").textContent =
+    "Niveau " + niveau;
+
+
+  // Niveau maximum
+  if (!infos.prochainNiveau) {
+
+    document.getElementById("progressionXP").style.width =
+      "100%";
+
+    document.getElementById("prochainNiveau").textContent =
+      "Niveau maximum atteint !";
+
+    return;
+  }
+
+
+  // XP nécessaire au début du niveau actuel
+  const xpDebut =
+    infos.niveauActuel.xp;
+
+  // XP nécessaire pour atteindre le prochain niveau
+  const xpFin =
+    infos.prochainNiveau.xp;
+
+
+  // XP gagnée depuis le début du niveau
+  const xpDansLeNiveau =
+    xp - xpDebut;
+
+
+  // XP totale nécessaire pour passer ce niveau
+  const xpNecessaire =
+    xpFin - xpDebut;
+
+
+  // Pourcentage de progression de la barre
+  const pourcentage =
+    (xpDansLeNiveau / xpNecessaire) * 100;
+
+
+  // Affichage sous la barre
+  document.getElementById("prochainNiveau").textContent =
+    `${xpDansLeNiveau} / ${xpNecessaire} XP`;
+
+
+  // Remplissage de la barre
+  document.getElementById("progressionXP").style.width =
+    pourcentage + "%";
+}
+
+
+afficherNiveau();
+
+const tropheesBtn = document.getElementById("tropheesBtn");
+
+tropheesBtn.addEventListener("click", () => {
+  window.location.href = "trophees.html";
+});
+</script>
+<script>
+  document.getElementById("journalBtn").addEventListener("click", () => {
+    window.location.href = "journal.html";
+  });
+document.getElementById("homeBtn").addEventListener("click", () => {
+  window.location.href = "index.html";
+});
+
+document.getElementById("parametresBtn").addEventListener("click", () => {
+  window.location.href = "parametres.html";
+});
+</script>
+</html>

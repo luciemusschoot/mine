@@ -1,0 +1,1938 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accueil</title>
+  <link rel="stylesheet" href="style.css">
+  <script>
+    if (localStorage.getItem("modeSombre") === "true") {
+      document.documentElement.classList.add("dark");
+    }
+  </script>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="steelblue">
+</head>
+<body>
+
+<header class="pages">
+  <span class="icone-entete">
+    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="#389085" viewBox="0 0 24 24">
+      <path d="M18 4H6V7C6 10.3 8.1 13.1 11 13.8V17H8V20H16V17H13V13.8C15.9 13.1 18 10.3 18 7V4ZM8 7V6H10V8C10 9.2 9.5 10.3 8.7 11C8.3 10.2 8 9.2 8 7ZM16 7C16 9.2 15.7 10.2 15.3 11C14.5 10.3 14 9.2 14 8V6H16V7Z"/>
+    </svg>
+  </span>
+  <h1>Trophées</h1>
+</header>
+
+  <main>
+
+<section class="profil-niveau">
+
+  <div class="niveau-trophees">
+    <strong id="niveauTrophees">Niveau 1</strong>
+  </div>
+
+  <div class="barre-xp">
+    <div id="progressionXPTrophees" class="progression-xp"></div>
+  </div>
+
+  <p id="prochainNiveauTrophees" class="prochain-niveau">
+    0 / 50 XP
+  </p>
+
+</section>
+
+    <section class="collection-trophees">
+
+      <h2>Mes trophées</h2>
+
+      <div id="listeTrophees" class="trophees-grid"></div>
+
+    </section>
+
+  </main>
+<nav class="bottom-nav">
+
+  <button id="homeBtn" class="nav-item" aria-label="Accueil">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3z"/>
+    </svg>
+    <span class="nav-label">Accueil</span>
+  </button>
+
+  <button id="journalBtn" class="nav-item" aria-label="Journal">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M12 5.5C10.5 4 8.5 3 5 3H3V19H5C8.5 19 10.5 20 12 21C13.5 20 15.5 19 19 19H21V3H19C15.5 3 13.5 4 12 5.5ZM11 18.3C9.5 17.5 7.7 17 5 17H5V5H5.5C8.1 5 9.8 5.7 11 6.8V18.3ZM19 17C16.3 17 14.5 17.5 13 18.3V6.8C14.2 5.7 15.9 5 18.5 5H19V17Z"/>
+    </svg>
+    <span class="nav-label">Journal</span>
+  </button>
+
+  <button id="NouvSeanceBtn" class="nav-item nav-item-add" aria-label="Ajouter une séance">
+    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="white" viewBox="0 0 24 24">
+      <path d="M11 5h2v6h6v2h-6v6h-2v-6H5v-2h6V5z"/>
+    </svg>
+  </button>
+
+  <button id="tropheesBtn" class="nav-item active" aria-label="Trophées">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M18 4H6V7C6 10.3 8.1 13.1 11 13.8V17H8V20H16V17H13V13.8C15.9 13.1 18 10.3 18 7V4ZM8 7V6H10V8C10 9.2 9.5 10.3 8.7 11C8.3 10.2 8 9.2 8 7ZM16 7C16 9.2 15.7 10.2 15.3 11C14.5 10.3 14 9.2 14 8V6H16V7Z"/>
+    </svg>
+    <span class="nav-label">Trophées</span>
+  </button>
+
+  <button id="parametresBtn" class="nav-item" aria-label="Paramètres">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M19.14 12.94c.04-.31.06-.63.06-.94s-.02-.63-.06-.94l2.03-1.58a.5.5 0 0 0 .12-.64l-1.92-3.32a.5.5 0 0 0-.6-.22l-2.39.96a7.03 7.03 0 0 0-1.62-.94l-.36-2.54A.5.5 0 0 0 14 2h-4a.5.5 0 0 0-.5.42l-.36 2.54c-.59.24-1.13.56-1.62.94l-2.39-.96a.5.5 0 0 0-.6.22L2.61 8.48a.5.5 0 0 0 .12.64l2.03 1.58c-.04.31-.06.63-.06.94s.02.63.06.94l-2.03 1.58a.5.5 0 0 0-.12.64l1.92 3.32c.14.24.42.32.6.22l2.39-.96c.49.38 1.03.7 1.62.94l.36 2.54c.05.28.27.42.5.42h4c.23 0 .45-.14.5-.42l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.24.1.5 0 .6-.22l1.92-3.32a.5.5 0 0 0-.12-.64l-2.03-1.58ZM12 15.5A3.5 3.5 0 1 1 12 8.5a3.5 3.5 0 0 1 0 7Z"/>
+    </svg>
+    <span class="nav-label">Paramètres</span>
+  </button>
+
+</nav>
+  <script>
+document.getElementById("homeBtn").addEventListener("click", () => {
+  window.location.href = "index.html";
+});
+document.getElementById("journalBtn").addEventListener("click", () => {
+  window.location.href = "journal.html";
+});
+document.getElementById("NouvSeanceBtn").addEventListener("click", () => {
+  window.location.href = "index.html?ouvrir=seance";
+});
+document.getElementById("parametresBtn").addEventListener("click", () => {
+  window.location.href = "parametres.html";
+});
+  </script>
+  <script>
+
+// ================================
+// NIVEAU / XP
+// ================================
+
+function calculerXP() {
+
+  const seances =
+    JSON.parse(localStorage.getItem("seances")) || [];
+
+  let xp = 0;
+
+  seances.forEach(seance => {
+
+    if (seance.type === "entrainement") {
+      xp += 10;
+    }
+
+    if (seance.type === "match") {
+      xp += 25;
+    }
+
+  });
+
+  return xp;
+}
+
+
+function obtenirInfosNiveau(xp) {
+
+  const niveaux = [
+    { niveau: 1, xp: 0 },
+    { niveau: 2, xp: 50 },
+    { niveau: 3, xp: 150 },
+    { niveau: 4, xp: 300 },
+    { niveau: 5, xp: 500 },
+    { niveau: 6, xp: 750 },
+    { niveau: 7, xp: 1050 },
+    { niveau: 8, xp: 1400 },
+    { niveau: 9, xp: 1800 },
+    { niveau: 10, xp: 2250 },
+    { niveau: 11, xp: 2750 },
+    { niveau: 12, xp: 3300 },
+    { niveau: 13, xp: 3900 },
+    { niveau: 14, xp: 4550 },
+    { niveau: 15, xp: 5250 },
+    { niveau: 16, xp: 6000 },
+    { niveau: 17, xp: 6800 },
+    { niveau: 18, xp: 7650 },
+    { niveau: 19, xp: 8550 },
+    { niveau: 20, xp: 9500 },
+    { niveau: 21, xp: 10500 },
+    { niveau: 22, xp: 11550 },
+    { niveau: 23, xp: 12650 },
+    { niveau: 24, xp: 13800 },
+    { niveau: 25, xp: 15000 },
+    { niveau: 26, xp: 16250 },
+    { niveau: 27, xp: 17550 },
+    { niveau: 28, xp: 18900 },
+    { niveau: 29, xp: 20300 },
+    { niveau: 30, xp: 21750 }
+  ];
+
+  let niveauActuel = niveaux[0];
+  let prochainNiveau = null;
+
+  for (let i = 0; i < niveaux.length; i++) {
+
+    if (xp >= niveaux[i].xp) {
+      niveauActuel = niveaux[i];
+    }
+
+    if (xp < niveaux[i].xp) {
+      prochainNiveau = niveaux[i];
+      break;
+    }
+
+  }
+
+  return {
+    niveauActuel,
+    prochainNiveau
+  };
+}
+
+
+function afficherNiveauTrophees() {
+
+  const xp = calculerXP();
+
+  const infos = obtenirInfosNiveau(xp);
+
+  // Niveau actuel
+  document.getElementById("niveauTrophees").textContent =
+    "Niveau " + infos.niveauActuel.niveau;
+
+
+  // Niveau maximum
+  if (!infos.prochainNiveau) {
+
+    document.getElementById("progressionXPTrophees").style.width =
+      "100%";
+
+    document.getElementById("prochainNiveauTrophees").textContent =
+      "Niveau maximum atteint !";
+
+    return;
+  }
+
+
+  // XP au début du niveau actuel
+  const xpDebut =
+    infos.niveauActuel.xp;
+
+  // XP nécessaire pour atteindre le prochain niveau
+  const xpFin =
+    infos.prochainNiveau.xp;
+
+
+  // XP gagnée depuis le début du niveau
+  const xpDansLeNiveau =
+    xp - xpDebut;
+
+
+  // XP nécessaire pour passer au niveau suivant
+  const xpNecessaire =
+    xpFin - xpDebut;
+
+
+  // Pourcentage de progression
+  const pourcentage =
+    (xpDansLeNiveau / xpNecessaire) * 100;
+
+
+  // Barre de progression
+  document.getElementById("progressionXPTrophees").style.width =
+    pourcentage + "%";
+
+
+  // Texte sous la barre
+  document.getElementById("prochainNiveauTrophees").textContent =
+    `${xpDansLeNiveau} / ${xpNecessaire} XP`;
+}
+
+
+// Affichage au chargement
+afficherNiveauTrophees();
+
+    function calculerNiveau(xp) {
+
+      if (xp >= 21750) return 30;
+      if (xp >= 20300) return 29;
+      if (xp >= 18900) return 28;
+      if (xp >= 17550) return 27;
+      if (xp >= 16250) return 26;
+      if (xp >= 15000) return 25;
+      if (xp >= 13800) return 24;
+      if (xp >= 12650) return 23;
+      if (xp >= 11550) return 22;
+      if (xp >= 10500) return 21;
+      if (xp >= 9500) return 20;
+      if (xp >= 8550) return 19;
+      if (xp >= 7650) return 18;
+      if (xp >= 6800) return 17;
+      if (xp >= 6000) return 16;
+      if (xp >= 5250) return 15;
+      if (xp >= 4550) return 14;
+      if (xp >= 3900) return 13;
+      if (xp >= 3300) return 12;
+      if (xp >= 2750) return 11;
+      if (xp >= 2250) return 10;
+      if (xp >= 1800) return 9;
+      if (xp >= 1400) return 8;
+      if (xp >= 1050) return 7;
+      if (xp >= 750) return 6;
+      if (xp >= 500) return 5;
+      if (xp >= 300) return 4;
+      if (xp >= 150) return 3;
+      if (xp >= 50) return 2;
+
+      return 1;
+    }
+
+
+// ================================
+// CALCUL DES STATISTIQUES
+// ================================
+
+function recupererStatistiques(seancesSource = null) {
+
+  const seances =
+    seancesSource ||
+    JSON.parse(localStorage.getItem("seances")) ||
+    [];
+
+
+  // On travaille toujours dans l'ordre chronologique
+  const seancesChronologiques = [...seances]
+    .sort((a, b) => new Date(a.date) - new Date(b.date));
+
+
+  // ================================
+  // ENTRAÎNEMENTS
+  // ================================
+
+  const entrainements =
+    seancesChronologiques.filter(
+      s => s.type === "entrainement"
+    );
+
+
+  // ================================
+  // MATCHS
+  // ================================
+
+  const matchs =
+    seancesChronologiques.filter(
+      s => s.type === "match" && s.match
+    );
+
+
+  // ================================
+  // XP / NIVEAU
+  // ================================
+
+  let xp = 0;
+
+  seancesChronologiques.forEach(seance => {
+
+    if (seance.type === "entrainement") {
+      xp += 10;
+    }
+
+    if (seance.type === "match") {
+      xp += 25;
+    }
+
+  });
+
+  const niveau = calculerNiveau(xp);
+
+
+  // ================================
+  // ARRÊTS
+  // ================================
+
+  const totalArrets =
+    matchs.reduce(
+      (total, seance) =>
+        total +
+        Number(seance.match.nombreArrets || 0),
+      0
+    );
+
+
+  const meilleurMatch =
+    matchs.length > 0
+      ? Math.max(
+          ...matchs.map(
+            s => Number(s.match.nombreArrets || 0)
+          )
+        )
+      : 0;
+
+
+  // ================================
+  // POURCENTAGES
+  // ================================
+
+  const pourcentages =
+    matchs.map(
+      s => Number(
+        s.match.pourcentageArrets || 0
+      )
+    );
+
+
+  const meilleurPourcentage =
+    pourcentages.length > 0
+      ? Math.max(...pourcentages)
+      : 0;
+
+
+  // ================================
+  // MATCHS AVEC 10 ARRÊTS
+  // ================================
+
+  const matchsAvec10Arrets =
+    matchs.filter(
+      s =>
+        Number(s.match.nombreArrets || 0) >= 10
+    ).length;
+
+
+  // ================================
+  // MATCHS À 70 % ET 80 %
+  // ================================
+
+  const matchs70 =
+    matchs.filter(
+      s =>
+        Number(s.match.pourcentageArrets || 0) >= 70
+    ).length;
+
+
+  const matchs80 =
+    matchs.filter(
+      s =>
+        Number(s.match.pourcentageArrets || 0) >= 80
+    ).length;
+
+
+  // ================================
+  // SÉRIE À 60 %
+  // ================================
+
+  let serie60 = 0;
+  let meilleureSerie60 = 0;
+
+  matchs.forEach(match => {
+
+    const pourcentage =
+      Number(
+        match.match.pourcentageArrets || 0
+      );
+
+    if (pourcentage >= 60) {
+
+      serie60++;
+
+      if (serie60 > meilleureSerie60) {
+        meilleureSerie60 = serie60;
+      }
+
+    } else {
+
+      serie60 = 0;
+
+    }
+
+  });
+
+
+  // ================================
+  // SÉRIE AVEC AU MOINS 1 ARRÊT
+  // ================================
+
+  let serieArret = 0;
+  let meilleureSerieAvecArret = 0;
+
+  matchs.forEach(match => {
+
+    const arrets =
+      Number(
+        match.match.nombreArrets || 0
+      );
+
+    if (arrets >= 1) {
+
+      serieArret++;
+
+      if (serieArret > meilleureSerieAvecArret) {
+        meilleureSerieAvecArret =
+          serieArret;
+      }
+
+    } else {
+
+      serieArret = 0;
+
+    }
+
+  });
+
+
+  // ================================
+  // 3 PREMIERS MATCHS AVEC 5 ARRÊTS
+  // ================================
+
+  const troisPremiersMatchs =
+    matchs.slice(0, 3);
+
+  const matchsAvec5ArretsPremiers =
+    troisPremiersMatchs.length === 3 &&
+    troisPremiersMatchs.every(
+      match =>
+        Number(match.match.nombreArrets || 0) >= 5
+    )
+      ? 3
+      : 0;
+
+
+  // ================================
+  // FOCUS
+  // ================================
+
+  const focusUtilises =
+    entrainements
+      .map(s => s.focus)
+      .filter(
+        focus =>
+          focus &&
+          focus.trim() !== ""
+      );
+
+
+  const focusUniques =
+    [...new Set(focusUtilises)];
+
+
+  const nombreFocus =
+    focusUniques.length;
+
+
+  // Nombre maximum d'entraînements
+  // avec le même focus
+
+  const compteurFocus = {};
+
+  entrainements.forEach(seance => {
+
+    if (!seance.focus) {
+      return;
+    }
+
+    compteurFocus[seance.focus] =
+      (compteurFocus[seance.focus] || 0) + 1;
+
+  });
+
+
+  const valeursFocus =
+    Object.values(compteurFocus);
+
+
+  const meilleurFocus =
+    valeursFocus.length > 0
+      ? Math.max(...valeursFocus)
+      : 0;
+
+
+  // ================================
+  // MÊME FOCUS + 4 ÉTOILES
+  // ================================
+
+  const compteurFocus4Etoiles = {};
+
+  entrainements.forEach(seance => {
+
+    if (!seance.focus) {
+      return;
+    }
+
+    const note =
+      Number(seance.note || 0);
+
+    if (note >= 4) {
+
+      compteurFocus4Etoiles[seance.focus] =
+        (compteurFocus4Etoiles[seance.focus] || 0) + 1;
+
+    }
+
+  });
+
+
+  const valeursFocus4Etoiles =
+    Object.values(compteurFocus4Etoiles);
+
+
+  const meilleurFocus4Etoiles =
+    valeursFocus4Etoiles.length > 0
+      ? Math.max(...valeursFocus4Etoiles)
+      : 0;
+
+
+  // ================================
+  // NOTES
+  // ================================
+
+  const seances5Etoiles =
+    seancesChronologiques.filter(
+      s => Number(s.note || 0) === 5
+    ).length;
+
+
+  const seances4Etoiles =
+    seancesChronologiques.filter(
+      s => Number(s.note || 0) >= 4
+    ).length;
+
+
+  // ================================
+  // SÉRIE DE 5 ÉTOILES
+  // ================================
+
+  let serie5Etoiles = 0;
+  let meilleureSerie5Etoiles = 0;
+
+  seancesChronologiques.forEach(seance => {
+
+    if (Number(seance.note || 0) === 5) {
+
+      serie5Etoiles++;
+
+      if (serie5Etoiles > meilleureSerie5Etoiles) {
+        meilleureSerie5Etoiles =
+          serie5Etoiles;
+      }
+
+    } else {
+
+      serie5Etoiles = 0;
+
+    }
+
+  });
+
+
+  // ================================
+  // SÉANCES SUR UNE PÉRIODE
+  // ================================
+
+  function maximumSeancesDansNombreDeJours(nombreDeJours) {
+
+    let maximum = 0;
+
+    for (
+      let i = 0;
+      i < seancesChronologiques.length;
+      i++
+    ) {
+
+      const dateFin =
+        new Date(
+          seancesChronologiques[i].date
+        );
+
+      let compteur = 0;
+
+      for (
+        let j = 0;
+        j < seancesChronologiques.length;
+        j++
+      ) {
+
+        const dateDebut =
+          new Date(
+            seancesChronologiques[j].date
+          );
+
+        const difference =
+          Math.abs(
+            dateFin - dateDebut
+          ) /
+          (1000 * 60 * 60 * 24);
+
+        if (difference <= nombreDeJours) {
+          compteur++;
+        }
+
+      }
+
+      if (compteur > maximum) {
+        maximum = compteur;
+      }
+
+    }
+
+    return maximum;
+
+  }
+
+
+  const maxSeances30Jours =
+    maximumSeancesDansNombreDeJours(30);
+
+
+  const maxSeances14Jours =
+    maximumSeancesDansNombreDeJours(14);
+
+
+  // ================================
+  // 3 SÉANCES DANS UNE MÊME SEMAINE
+  // ================================
+
+  const semaines = {};
+
+  seancesChronologiques.forEach(seance => {
+
+    const date =
+      new Date(seance.date);
+
+    const jour =
+      date.getDay() || 7;
+
+    const lundi =
+      new Date(date);
+
+    lundi.setDate(
+      date.getDate() - jour + 1
+    );
+
+    const cle =
+      lundi.toISOString().split("T")[0];
+
+    semaines[cle] =
+      (semaines[cle] || 0) + 1;
+
+  });
+
+
+  const valeursSemaines =
+    Object.values(semaines);
+
+
+  const maxSeancesSemaine =
+    valeursSemaines.length > 0
+      ? Math.max(...valeursSemaines)
+      : 0;
+
+
+  // ================================
+  // RETOUR APRÈS 14 JOURS DE PAUSE
+  // ================================
+
+  let aReprisApresPause = false;
+
+  for (
+    let i = 1;
+    i < seancesChronologiques.length;
+    i++
+  ) {
+
+    const precedente =
+      new Date(
+        seancesChronologiques[i - 1].date
+      );
+
+    const actuelle =
+      new Date(
+        seancesChronologiques[i].date
+      );
+
+    const difference =
+      (
+        actuelle - precedente
+      ) /
+      (1000 * 60 * 60 * 24);
+
+
+    if (difference >= 14) {
+
+      aReprisApresPause = true;
+      break;
+
+    }
+
+  }
+
+
+  // ================================
+  // 4 SEMAINES CONSÉCUTIVES
+  // ================================
+
+  const semainesPresentes =
+    new Set();
+
+  seancesChronologiques.forEach(seance => {
+
+    const date =
+      new Date(seance.date);
+
+    const jour =
+      date.getDay() || 7;
+
+    const lundi =
+      new Date(date);
+
+    lundi.setDate(
+      date.getDate() - jour + 1
+    );
+
+    const cle =
+      lundi.toISOString().split("T")[0];
+
+    semainesPresentes.add(cle);
+
+  });
+
+
+  const semainesTriees =
+    [...semainesPresentes]
+      .sort();
+
+
+  let serieSemaines = 0;
+  let meilleureSerieSemaines = 0;
+
+  for (
+    let i = 0;
+    i < semainesTriees.length;
+    i++
+  ) {
+
+    if (i === 0) {
+
+      serieSemaines = 1;
+
+    } else {
+
+      const precedente =
+        new Date(
+          semainesTriees[i - 1]
+        );
+
+      const actuelle =
+        new Date(
+          semainesTriees[i]
+        );
+
+      const difference =
+        Math.round(
+          (
+            actuelle - precedente
+          ) /
+          (1000 * 60 * 60 * 24)
+        );
+
+      if (difference === 7) {
+
+        serieSemaines++;
+
+      } else {
+
+        serieSemaines = 1;
+
+      }
+
+    }
+
+
+    if (serieSemaines > meilleureSerieSemaines) {
+      meilleureSerieSemaines =
+        serieSemaines;
+    }
+
+  }
+
+
+  // ================================
+  // RETOUR DES STATISTIQUES
+  // ================================
+
+  return {
+
+    totalSeances:
+      seancesChronologiques.length,
+
+    entrainements:
+      entrainements.length,
+
+    matchs:
+      matchs.length,
+
+    totalArrets,
+
+    meilleurMatch,
+
+    meilleurPourcentage,
+
+    matchsAvec10Arrets,
+
+    matchs70,
+
+    matchs80,
+
+    meilleureSerie60,
+
+    meilleureSerieAvecArret,
+
+    matchsAvec5ArretsPremiers,
+
+    nombreFocus,
+
+    meilleurFocus,
+
+    meilleurFocus4Etoiles,
+
+    seances5Etoiles,
+
+    seances4Etoiles,
+
+    meilleureSerie5Etoiles,
+
+    maxSeances30Jours,
+
+    maxSeances14Jours,
+
+    maxSeancesSemaine,
+
+    aReprisApresPause,
+
+    meilleureSerieSemaines,
+
+    xp,
+
+    niveau
+
+  };
+
+}
+
+// ================================
+// TROPHÉES
+// ================================
+
+const trophees = [
+
+  // ================================
+  // ENTRAÎNEMENTS
+  // ================================
+
+  {
+    id: "premier-entrainement",
+    titre: "Premiers pas",
+    sousTitre: "1 entraînement joué",
+    condition: stats => stats.entrainements >= 1,
+    xp: 25,
+    progression: stats => ({
+      actuel: stats.entrainements,
+      objectif: 1
+    })
+  },
+
+  {
+    id: "10-entrainements",
+    titre: "Assidue",
+    sousTitre: "10 entraînements joués",
+    condition: stats => stats.entrainements >= 10,
+    xp: 50,
+    progression: stats => ({
+      actuel: stats.entrainements,
+      objectif: 10
+    })
+  },
+
+  {
+    id: "25-entrainements",
+    titre: "Travailleuse",
+    sousTitre: "25 entraînements joués",
+    condition: stats => stats.entrainements >= 25,
+    xp: 75,
+    progression: stats => ({
+      actuel: stats.entrainements,
+      objectif: 25
+    })
+  },
+
+  {
+    id: "50-entrainements",
+    titre: "Machine",
+    sousTitre: "50 entraînements joués",
+    condition: stats => stats.entrainements >= 50,
+    xp: 125,
+    progression: stats => ({
+      actuel: stats.entrainements,
+      objectif: 50
+    })
+  },
+
+  {
+    id: "100-entrainements",
+    titre: "Infatigable",
+    sousTitre: "100 entraînements joués",
+    condition: stats => stats.entrainements >= 100,
+    xp: 250,
+    progression: stats => ({
+      actuel: stats.entrainements,
+      objectif: 100
+    })
+  },
+
+
+  // ================================
+  // MATCHS
+  // ================================
+
+  {
+    id: "premier-match",
+    titre: "Première bataille",
+    sousTitre: "1er match joué",
+    condition: stats => stats.matchs >= 1,
+    xp: 25,
+    progression: stats => ({
+      actuel: stats.matchs,
+      objectif: 1
+    })
+  },
+
+  {
+    id: "10-matchs",
+    titre: "Compétitrice",
+    sousTitre: "10 matchs joués",
+    condition: stats => stats.matchs >= 10,
+    xp: 50,
+    progression: stats => ({
+      actuel: stats.matchs,
+      objectif: 10
+    })
+  },
+
+  {
+    id: "50-matchs",
+    titre: "Vétérane",
+    sousTitre: "50 matchs joués",
+    condition: stats => stats.matchs >= 50,
+    xp: 125,
+    progression: stats => ({
+      actuel: stats.matchs,
+      objectif: 50
+    })
+  },
+
+  {
+    id: "100-matchs",
+    titre: "Centenaire",
+    sousTitre: "100 matchs joués",
+    condition: stats => stats.matchs >= 100,
+    xp: 250,
+    progression: stats => ({
+      actuel: stats.matchs,
+      objectif: 100
+    })
+  },
+
+
+  // ================================
+  // ARRÊTS CUMULÉS
+  // ================================
+
+  {
+    id: "premier-arret",
+    titre: "Première parade",
+    sousTitre: "1 arrêt en match",
+    condition: stats => stats.totalArrets >= 1,
+    xp: 25,
+    progression: stats => ({
+      actuel: stats.totalArrets,
+      objectif: 1
+    })
+  },
+
+  {
+    id: "50-arrets",
+    titre: "Bonne gardienne",
+    sousTitre: "50 arrêts cumulés",
+    condition: stats => stats.totalArrets >= 50,
+    xp: 50,
+    progression: stats => ({
+      actuel: stats.totalArrets,
+      objectif: 50
+    })
+  },
+
+  {
+    id: "100-arrets",
+    titre: "Mur",
+    sousTitre: "100 arrêts cumulés",
+    condition: stats => stats.totalArrets >= 100,
+    xp: 75,
+    progression: stats => ({
+      actuel: stats.totalArrets,
+      objectif: 100
+    })
+  },
+
+  {
+    id: "250-arrets",
+    titre: "Rempart",
+    sousTitre: "250 arrêts cumulés",
+    condition: stats => stats.totalArrets >= 250,
+    xp: 125,
+    progression: stats => ({
+      actuel: stats.totalArrets,
+      objectif: 250
+    })
+  },
+
+  {
+    id: "500-arrets",
+    titre: "Forteresse",
+    sousTitre: "500 arrêts cumulés",
+    condition: stats => stats.totalArrets >= 500,
+    xp: 250,
+    progression: stats => ({
+      actuel: stats.totalArrets,
+      objectif: 500
+    })
+  },
+
+
+  // ================================
+  // POURCENTAGES
+  // ================================
+
+  {
+    id: "50-pourcent",
+    titre: "Des réflexes",
+    sousTitre: "50 % d'arrêts sur un match",
+    condition: stats => stats.meilleurPourcentage >= 50,
+    xp: 50,
+    progression: stats => ({
+      actuel: stats.meilleurPourcentage,
+      objectif: 50,
+      unite: "%"
+    })
+  },
+
+  {
+    id: "60-pourcent",
+    titre: "Solide",
+    sousTitre: "60 % d'arrêts sur un match",
+    condition: stats => stats.meilleurPourcentage >= 60,
+    xp: 75,
+    progression: stats => ({
+      actuel: stats.meilleurPourcentage,
+      objectif: 60,
+      unite: "%"
+    })
+  },
+
+  {
+    id: "70-pourcent",
+    titre: "Performante",
+    sousTitre: "70 % d'arrêts sur un match",
+    condition: stats => stats.meilleurPourcentage >= 70,
+    xp: 100,
+    progression: stats => ({
+      actuel: stats.meilleurPourcentage,
+      objectif: 70,
+      unite: "%"
+    })
+  },
+
+  {
+    id: "80-pourcent",
+    titre: "Excellente",
+    sousTitre: "80 % d'arrêts sur un match",
+    condition: stats => stats.meilleurPourcentage >= 80,
+    xp: 150,
+    progression: stats => ({
+      actuel: stats.meilleurPourcentage,
+      objectif: 80,
+      unite: "%"
+    })
+  },
+
+  {
+    id: "100-pourcent",
+    titre: "Gant d'or",
+    sousTitre: "100 % d'arrêts sur un match",
+    condition: stats => stats.meilleurPourcentage >= 100,
+    xp: 300,
+    progression: stats => ({
+      actuel: stats.meilleurPourcentage,
+      objectif: 100,
+      unite: "%"
+    })
+  },
+
+
+  // ================================
+  // PERFORMANCE SUR UN MATCH
+  // ================================
+
+  {
+    id: "10-arrets-match",
+    titre: "Dans la zone",
+    sousTitre: "10 arrêts dans un match",
+    condition: stats => stats.meilleurMatch >= 10,
+    xp: 75,
+    progression: stats => ({
+      actuel: stats.meilleurMatch,
+      objectif: 10
+    })
+  },
+
+  {
+    id: "15-arrets-match",
+    titre: "Muraille",
+    sousTitre: "15 arrêts dans un match",
+    condition: stats => stats.meilleurMatch >= 15,
+    xp: 100,
+    progression: stats => ({
+      actuel: stats.meilleurMatch,
+      objectif: 15
+    })
+  },
+
+  {
+    id: "20-arrets-match",
+    titre: "Infranchissable",
+    sousTitre: "20 arrêts dans un match",
+    condition: stats => stats.meilleurMatch >= 20,
+    xp: 150,
+    progression: stats => ({
+      actuel: stats.meilleurMatch,
+      objectif: 20
+    })
+  },
+
+  {
+    id: "25-arrets-match",
+    titre: "Dernier rempart",
+    sousTitre: "25 arrêts dans un match",
+    condition: stats => stats.meilleurMatch >= 25,
+    xp: 200,
+    progression: stats => ({
+      actuel: stats.meilleurMatch,
+      objectif: 25
+    })
+  },
+
+  {
+    id: "5-matchs-10-arrets",
+    titre: "Main ferme",
+    sousTitre: "5 matchs avec au moins 10 arrêts",
+    condition: stats => stats.matchsAvec10Arrets >= 5,
+    xp: 150,
+    progression: stats => ({
+      actuel: stats.matchsAvec10Arrets,
+      objectif: 5
+    })
+  },
+
+
+  // ================================
+  // RÉGULARITÉ EN MATCH
+  // ================================
+
+  {
+    id: "5-matchs-60",
+    titre: "Régulière",
+    sousTitre: "5 matchs consécutifs à 60 % ou plus",
+    condition: stats => stats.meilleureSerie60 >= 5,
+    xp: 150,
+    progression: stats => ({
+      actuel: stats.meilleureSerie60,
+      objectif: 5,
+      unite: " matchs"
+    })
+  },
+
+  {
+    id: "10-matchs-70",
+    titre: "Constante",
+    sousTitre: "10 matchs à 70 % ou plus",
+    condition: stats => stats.matchs70 >= 10,
+    xp: 200,
+    progression: stats => ({
+      actuel: stats.matchs70,
+      objectif: 10
+    })
+  },
+
+  {
+    id: "10-matchs-80",
+    titre: "Élite",
+    sousTitre: "10 matchs à 80 % ou plus",
+    condition: stats => stats.matchs80 >= 10,
+    xp: 300,
+    progression: stats => ({
+      actuel: stats.matchs80,
+      objectif: 10
+    })
+  },
+
+  {
+    id: "3-matchs-5-arrets",
+    titre: "Départ canon",
+    sousTitre: "3 premiers matchs avec au moins 5 arrêts",
+    condition: stats => stats.matchsAvec5ArretsPremiers >= 3,
+    xp: 75,
+    progression: stats => ({
+      actuel: stats.matchsAvec5ArretsPremiers,
+      objectif: 3
+    })
+  },
+
+  {
+    id: "serie-5-arrets",
+    titre: "La série",
+    sousTitre: "5 matchs consécutifs avec au moins 1 arrêt",
+    condition: stats => stats.meilleureSerieAvecArret >= 5,
+    xp: 100,
+    progression: stats => ({
+      actuel: stats.meilleureSerieAvecArret,
+      objectif: 5,
+      unite: " matchs"
+    })
+  },
+
+  {
+    id: "serie-10-arrets",
+    titre: "Invincible",
+    sousTitre: "10 matchs consécutifs avec au moins 1 arrêt",
+    condition: stats => stats.meilleureSerieAvecArret >= 10,
+    xp: 200,
+    progression: stats => ({
+      actuel: stats.meilleureSerieAvecArret,
+      objectif: 10,
+      unite: " matchs"
+    })
+  },
+
+
+  // ================================
+  // FOCUS
+  // ================================
+
+  {
+    id: "5-focus",
+    titre: "Polyvalente",
+    sousTitre: "Utiliser 5 focus différents",
+    condition: stats => stats.nombreFocus >= 5,
+    xp: 50,
+    progression: stats => ({
+      actuel: stats.nombreFocus,
+      objectif: 5
+    })
+  },
+
+  {
+    id: "10-focus",
+    titre: "Exploratrice",
+    sousTitre: "Utiliser 10 focus différents",
+    condition: stats => stats.nombreFocus >= 10,
+    xp: 100,
+    progression: stats => ({
+      actuel: stats.nombreFocus,
+      objectif: 10
+    })
+  },
+
+  {
+    id: "10-meme-focus",
+    titre: "Spécialiste",
+    sousTitre: "10 entraînements sur le même focus",
+    condition: stats => stats.meilleurFocus >= 10,
+    xp: 100,
+    progression: stats => ({
+      actuel: stats.meilleurFocus,
+      objectif: 10
+    })
+  },
+
+  {
+    id: "25-meme-focus",
+    titre: "Experte",
+    sousTitre: "25 entraînements sur le même focus",
+    condition: stats => stats.meilleurFocus >= 25,
+    xp: 200,
+    progression: stats => ({
+      actuel: stats.meilleurFocus,
+      objectif: 25
+    })
+  },
+
+  {
+    id: "10-focus-4-etoiles",
+    titre: "Objectif atteint",
+    sousTitre: "10 séances avec le même focus et 4★ ou plus",
+    condition: stats => stats.meilleurFocus4Etoiles >= 10,
+    xp: 250,
+    progression: stats => ({
+      actuel: stats.meilleurFocus4Etoiles,
+      objectif: 10
+    })
+  },
+
+
+  // ================================
+  // NOTES
+  // ================================
+
+  {
+    id: "10-cinq-etoiles",
+    titre: "Perfectionniste",
+    sousTitre: "10 séances notées 5★",
+    condition: stats => stats.seances5Etoiles >= 10,
+    xp: 100,
+    progression: stats => ({
+      actuel: stats.seances5Etoiles,
+      objectif: 10
+    })
+  },
+
+  {
+    id: "10-quatre-etoiles",
+    titre: "Exigeante",
+    sousTitre: "10 séances notées 4★ ou plus",
+    condition: stats => stats.seances4Etoiles >= 10,
+    xp: 75,
+    progression: stats => ({
+      actuel: stats.seances4Etoiles,
+      objectif: 10
+    })
+  },
+
+  {
+    id: "25-cinq-etoiles",
+    titre: "Excellence",
+    sousTitre: "25 séances notées 5★",
+    condition: stats => stats.seances5Etoiles >= 25,
+    xp: 250,
+    progression: stats => ({
+      actuel: stats.seances5Etoiles,
+      objectif: 25
+    })
+  },
+
+  {
+    id: "3-cinq-etoiles-suite",
+    titre: "Coup de maître",
+    sousTitre: "3 séances consécutives à 5★",
+    condition: stats => stats.meilleureSerie5Etoiles >= 3,
+    xp: 100,
+    progression: stats => ({
+      actuel: stats.meilleureSerie5Etoiles,
+      objectif: 3,
+      unite: " séances"
+    })
+  },
+
+  {
+    id: "5-cinq-etoiles-suite",
+    titre: "Sans faute",
+    sousTitre: "5 séances consécutives à 5★",
+    condition: stats => stats.meilleureSerie5Etoiles >= 5,
+    xp: 200,
+    progression: stats => ({
+      actuel: stats.meilleureSerie5Etoiles,
+      objectif: 5,
+      unite: " séances"
+    })
+  },
+
+
+  // ================================
+  // RÉGULARITÉ DANS LE TEMPS
+  // ================================
+
+  {
+    id: "20-seances-30-jours",
+    titre: "Déterminée",
+    sousTitre: "20 séances en 30 jours",
+    condition: stats => stats.maxSeances30Jours >= 20,
+    xp: 250,
+    progression: stats => ({
+      actuel: stats.maxSeances30Jours,
+      objectif: 20
+    })
+  },
+
+  {
+    id: "10-seances-14-jours",
+    titre: "Régularité",
+    sousTitre: "10 séances en 14 jours",
+    condition: stats => stats.maxSeances14Jours >= 10,
+    xp: 150,
+    progression: stats => ({
+      actuel: stats.maxSeances14Jours,
+      objectif: 10
+    })
+  },
+
+  {
+    id: "3-seances-semaine",
+    titre: "Marathon",
+    sousTitre: "3 séances dans une même semaine",
+    condition: stats => stats.maxSeancesSemaine >= 3,
+    xp: 75,
+    progression: stats => ({
+      actuel: stats.maxSeancesSemaine,
+      objectif: 3
+    })
+  },
+
+  {
+    id: "retour-combat",
+    titre: "Retour au combat",
+    sousTitre: "Reprendre après au moins 14 jours de pause",
+    condition: stats => stats.aReprisApresPause,
+    xp: 150,
+    progression: stats => ({
+      actuel: stats.aReprisApresPause ? 1 : 0,
+      objectif: 1
+    })
+  },
+
+  {
+    id: "4-semaines",
+    titre: "Toujours présente",
+    sousTitre: "4 semaines consécutives avec une séance",
+    condition: stats => stats.meilleureSerieSemaines >= 4,
+    xp: 200,
+    progression: stats => ({
+      actuel: stats.meilleureSerieSemaines,
+      objectif: 4,
+      unite: " semaines"
+    })
+  },
+
+
+  // ================================
+  // VOLUME GLOBAL
+  // ================================
+
+  {
+    id: "10-seances",
+    titre: "Saison lancée",
+    sousTitre: "10 séances enregistrées",
+    condition: stats => stats.totalSeances >= 10,
+    xp: 50,
+    progression: stats => ({
+      actuel: stats.totalSeances,
+      objectif: 10
+    })
+  },
+
+  {
+    id: "100-seances",
+    titre: "Cap des 100",
+    sousTitre: "100 séances enregistrées",
+    condition: stats => stats.totalSeances >= 100,
+    xp: 300,
+    progression: stats => ({
+      actuel: stats.totalSeances,
+      objectif: 100
+    })
+  },
+
+
+  // ================================
+  // NIVEAUX
+  // ================================
+
+  {
+    id: "niveau-5",
+    titre: "Niveau supérieur",
+    sousTitre: "Atteindre le niveau 5",
+    condition: stats => stats.niveau >= 5,
+    xp: 100,
+    progression: stats => ({
+      actuel: stats.niveau,
+      objectif: 5
+    })
+  },
+
+  {
+    id: "niveau-10",
+    titre: "Maîtrise",
+    sousTitre: "Atteindre le niveau 10",
+    condition: stats => stats.niveau >= 10,
+    xp: 300,
+    progression: stats => ({
+      actuel: stats.niveau,
+      objectif: 10
+    })
+  },
+
+  {
+    id: "gardienne-ultime",
+    titre: "Gardienne ultime",
+    sousTitre: "Atteindre 3000 XP",
+    condition: stats => stats.xp >= 3000,
+    xp: 1000,
+    progression: stats => ({
+      actuel: stats.xp,
+      objectif: 3000,
+      unite: " XP"
+    })
+  }
+
+];
+
+// ================================
+// DATE EXACTE D'OBTENTION
+// ================================
+
+function trouverDateObtention(trophee) {
+
+  const seances =
+    JSON.parse(localStorage.getItem("seances")) || [];
+
+
+  const seancesChronologiques =
+    [...seances].sort(
+      (a, b) =>
+        new Date(a.date) - new Date(b.date)
+    );
+
+
+  // On ajoute les séances une par une.
+  // Dès que la condition devient vraie,
+  // la dernière séance est celle qui
+  // débloque le trophée.
+
+  for (
+    let i = 0;
+    i < seancesChronologiques.length;
+    i++
+  ) {
+
+    const historique =
+      seancesChronologiques.slice(
+        0,
+        i + 1
+      );
+
+
+    const stats =
+      recupererStatistiques(
+        historique
+      );
+
+
+    if (trophee.condition(stats)) {
+
+      return seancesChronologiques[i].date;
+
+    }
+
+  }
+
+
+  return null;
+
+}
+
+// ================================
+// AFFICHAGE DES TROPHÉES
+// ================================
+
+function afficherTrophees() {
+
+  const seances =
+    JSON.parse(localStorage.getItem("seances")) || [];
+
+  const stats =
+    recupererStatistiques(seances);
+
+  const liste =
+    document.getElementById("listeTrophees");
+
+  liste.innerHTML = "";
+
+
+  // ================================
+  // TROPHÉES DÉJÀ ENREGISTRÉS
+  // ================================
+
+  const tropheesObtenus =
+    JSON.parse(
+      localStorage.getItem("tropheesObtenus")
+    ) || {};
+
+
+  // ================================
+  // TRI DES TROPHÉES
+  // ================================
+
+  const tropheesTries =
+    [...trophees].sort((a, b) => {
+
+      const obtenuA =
+        a.condition(stats);
+
+      const obtenuB =
+        b.condition(stats);
+
+      return obtenuB - obtenuA;
+
+    });
+
+
+  tropheesTries.forEach(trophee => {
+
+    // ================================
+    // ÉTAT DU TROPHÉE
+    // ================================
+
+    const obtenu =
+      trophee.condition(stats);
+
+
+    // ================================
+    // DATE D'OBTENTION
+    // ================================
+
+    let dateFormatee = "";
+
+
+    if (obtenu) {
+
+      /*
+       * Le trophée est actuellement obtenu.
+       *
+       * S'il n'a pas encore de date enregistrée,
+       * on recherche la séance exacte qui l'a déclenché.
+       */
+
+      if (!tropheesObtenus[trophee.id]) {
+
+        const dateExacte =
+          trouverDateObtention(trophee);
+
+        if (dateExacte) {
+
+          tropheesObtenus[trophee.id] =
+            dateExacte;
+
+        }
+
+      }
+
+
+    } else {
+
+      /*
+       * IMPORTANT :
+       *
+       * Le trophée n'est plus obtenu.
+       * On supprime donc son ancienne date.
+       *
+       * Ainsi, s'il est obtenu à nouveau plus tard,
+       * une nouvelle date sera calculée.
+       */
+
+      delete tropheesObtenus[trophee.id];
+
+    }
+
+
+    // ================================
+    // SAUVEGARDE
+    // ================================
+
+    localStorage.setItem(
+      "tropheesObtenus",
+      JSON.stringify(tropheesObtenus)
+    );
+
+
+    // ================================
+    // PROGRESSION
+    // ================================
+
+    let actuel = 0;
+    let objectif = 1;
+    let unite = "";
+
+
+    if (trophee.progression) {
+
+      const progression =
+        trophee.progression(stats);
+
+
+      actuel =
+        Number(progression.actuel) || 0;
+
+      objectif =
+        Number(progression.objectif) || 1;
+
+      unite =
+        progression.unite || "";
+
+    }
+
+
+    // ================================
+    // POURCENTAGE
+    // ================================
+
+    const pourcentage =
+      Math.min(
+        100,
+        Math.max(
+          0,
+          Math.round(
+            (actuel / objectif) * 100
+          )
+        )
+      );
+
+
+    // ================================
+    // FORMATAGE DATE
+    // ================================
+
+    if (
+      obtenu &&
+      tropheesObtenus[trophee.id]
+    ) {
+
+      const dateObtention =
+        new Date(
+          tropheesObtenus[trophee.id]
+        );
+
+
+      dateFormatee =
+        dateObtention.toLocaleDateString(
+          "fr-FR",
+          {
+            day: "numeric",
+            month: "long",
+            year: "numeric"
+          }
+        );
+
+    }
+
+
+    // ================================
+    // CARTE
+    // ================================
+
+    const carte =
+      document.createElement("div");
+
+
+    carte.className =
+      obtenu
+        ? "carte-trophee obtenu"
+        : "carte-trophee non-obtenu";
+
+
+    // ================================
+    // TEXTE DE PROGRESSION
+    // ================================
+
+    let texteProgression = "";
+
+
+    if (objectif > 1) {
+
+      texteProgression =
+        `${Math.min(actuel, objectif)}${unite} / ${objectif}${unite}`;
+
+    } else {
+
+      texteProgression =
+        `${Math.min(actuel, objectif)} / ${objectif}`;
+
+    }
+
+
+    // ================================
+    // HTML DE LA CARTE
+    // ================================
+
+    carte.innerHTML = `
+
+      <div class="badge-trophee">
+        🏆
+      </div>
+
+      <h3>
+        ${trophee.titre}
+      </h3>
+
+      <p class="sous-titre-trophee">
+        ${trophee.sousTitre}
+      </p>
+
+
+      ${
+        !obtenu
+          ? `
+            <div class="progression-trophee">
+
+              <div class="barre-progression">
+
+                <div
+                  class="barre-progression-remplie"
+                  style="width: ${pourcentage}%"
+                ></div>
+
+              </div>
+
+              <div class="texte-progression">
+                ${texteProgression}
+              </div>
+
+            </div>
+          `
+          : ""
+      }
+
+
+      ${
+        obtenu
+          ? `
+            <p class="date-trophee">
+              ✓ ${dateFormatee}
+            </p>
+          `
+          : `
+            <p class="trophee-verrouille">
+              Non obtenu
+            </p>
+          `
+      }
+
+    `;
+
+
+    // ================================
+    // AJOUT À LA LISTE
+    // ================================
+
+    liste.appendChild(carte);
+
+  });
+
+}
+    afficherTrophees();
+  </script>
+</body>
+</html>

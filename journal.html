@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accueil</title>
+  <link rel="stylesheet" href="style.css">
+  <script>
+    if (localStorage.getItem("modeSombre") === "true") {
+      document.documentElement.classList.add("dark");
+    }
+  </script>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="steelblue">
+</head>
+<body>
+
+<header class="pages">
+  <span class="icone-entete">
+    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="#389085" viewBox="0 0 24 24">
+      <path d="M12 5.5C10.5 4 8.5 3 5 3H3V19H5C8.5 19 10.5 20 12 21C13.5 20 15.5 19 19 19H21V3H19C15.5 3 13.5 4 12 5.5ZM11 18.3C9.5 17.5 7.7 17 5 17H5V5H5.5C8.1 5 9.8 5.7 11 6.8V18.3ZM19 17C16.3 17 14.5 17.5 13 18.3V6.8C14.2 5.7 15.9 5 18.5 5H19V17Z"/>
+    </svg>
+  </span>
+  <h1>Journal</h1>
+</header>
+
+<main>
+
+  <div id="listeSeances" class="trophees-grid"></div>
+
+  <div id="detailSeance" class="modal">
+    <div class="modal-content" id="detailSeanceContenu">
+      <!-- Rempli dynamiquement en JS -->
+    </div>
+  </div>
+
+</main>
+
+<nav class="bottom-nav">
+
+  <button id="homeBtn" class="nav-item" aria-label="Accueil">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3z"/>
+    </svg>
+    <span class="nav-label">Accueil</span>
+  </button>
+
+  <button id="journalBtn" class="nav-item active" aria-label="Journal">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M12 5.5C10.5 4 8.5 3 5 3H3V19H5C8.5 19 10.5 20 12 21C13.5 20 15.5 19 19 19H21V3H19C15.5 3 13.5 4 12 5.5ZM11 18.3C9.5 17.5 7.7 17 5 17H5V5H5.5C8.1 5 9.8 5.7 11 6.8V18.3ZM19 17C16.3 17 14.5 17.5 13 18.3V6.8C14.2 5.7 15.9 5 18.5 5H19V17Z"/>
+    </svg>
+    <span class="nav-label">Journal</span>
+  </button>
+
+  <button id="NouvSeanceBtn" class="nav-item nav-item-add" aria-label="Ajouter une séance">
+    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="white" viewBox="0 0 24 24">
+      <path d="M11 5h2v6h6v2h-6v6h-2v-6H5v-2h6V5z"/>
+    </svg>
+  </button>
+
+  <button id="tropheesBtn" class="nav-item" aria-label="Trophées">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M18 4H6V7C6 10.3 8.1 13.1 11 13.8V17H8V20H16V17H13V13.8C15.9 13.1 18 10.3 18 7V4ZM8 7V6H10V8C10 9.2 9.5 10.3 8.7 11C8.3 10.2 8 9.2 8 7ZM16 7C16 9.2 15.7 10.2 15.3 11C14.5 10.3 14 9.2 14 8V6H16V7Z"/>
+    </svg>
+    <span class="nav-label">Trophées</span>
+  </button>
+
+  <button id="parametresBtn" class="nav-item" aria-label="Paramètres">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M19.14 12.94c.04-.31.06-.63.06-.94s-.02-.63-.06-.94l2.03-1.58a.5.5 0 0 0 .12-.64l-1.92-3.32a.5.5 0 0 0-.6-.22l-2.39.96a7.03 7.03 0 0 0-1.62-.94l-.36-2.54A.5.5 0 0 0 14 2h-4a.5.5 0 0 0-.5.42l-.36 2.54c-.59.24-1.13.56-1.62.94l-2.39-.96a.5.5 0 0 0-.6.22L2.61 8.48a.5.5 0 0 0 .12.64l2.03 1.58c-.04.31-.06.63-.06.94s.02.63.06.94l-2.03 1.58a.5.5 0 0 0-.12.64l1.92 3.32c.14.24.42.32.6.22l2.39-.96c.49.38 1.03.7 1.62.94l.36 2.54c.05.28.27.42.5.42h4c.23 0 .45-.14.5-.42l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.24.1.5 0 .6-.22l1.92-3.32a.5.5 0 0 0-.12-.64l-2.03-1.58ZM12 15.5A3.5 3.5 0 1 1 12 8.5a3.5 3.5 0 0 1 0 7Z"/>
+    </svg>
+    <span class="nav-label">Paramètres</span>
+  </button>
+
+</nav>    
+<script>
+document.getElementById("homeBtn").addEventListener("click", () => {
+  window.location.href = "index.html";
+});
+document.getElementById("NouvSeanceBtn").addEventListener("click", () => {
+  window.location.href = "index.html?ouvrir=seance";
+});
+document.getElementById("tropheesBtn").addEventListener("click", () => {
+  window.location.href = "trophees.html";
+});
+document.getElementById("parametresBtn").addEventListener("click", () => {
+  window.location.href = "parametres.html";
+});
+</script>
+
+<script>
+const listeSeances = document.getElementById("listeSeances");
+const detailSeance = document.getElementById("detailSeance");
+const detailSeanceContenu = document.getElementById("detailSeanceContenu");
+
+const seances = JSON.parse(localStorage.getItem("seances")) || [];
+
+const seancesTriees =
+  [...seances].sort((a, b) => new Date(b.date) - new Date(a.date));
+
+// ================================
+// CARTES (compactes, façon trophées)
+// ================================
+
+seancesTriees.forEach(seance => {
+
+  const carte = document.createElement("div");
+  carte.classList.add("carte-trophee", "carte-seance-compacte");
+
+  const date = new Date(seance.date);
+
+  // Format complet pour la fiche détail
+  const dateFormatee = date.toLocaleDateString("fr-FR", {
+    day: "numeric",
+    month: "long",
+    year: "numeric"
+  });
+
+  // Format court pour la carte (ex: "9 sept.")
+  const dateCourte = date.toLocaleDateString("fr-FR", {
+    day: "numeric",
+    month: "short"
+  });
+
+  const etoiles =
+    "★".repeat(seance.note) +
+    "☆".repeat(5 - seance.note);
+
+  const estMatch = seance.type === "match" && seance.match;
+
+  carte.innerHTML = `
+
+    <button
+      class="supprimer-seance-compacte"
+      data-date="${seance.date}"
+      title="Supprimer">
+      ×
+    </button>
+
+    <span class="badge-type ${estMatch ? "badge-match" : "badge-entrainement"}">
+      ${estMatch ? "Match" : "Entraînement"}
+    </span>
+
+    <p class="date-carte-seance">${dateCourte}</p>
+
+    ${
+      estMatch
+        ? `
+          <p class="score-carte-seance">
+            <span class="score-nous">${seance.match.scoreNous}</span>
+            <span class="score-tiret">-</span>
+            <span class="score-eux">${seance.match.scoreAdversaire}</span>
+          </p>
+          <p class="adversaire-carte-seance">${seance.match.adversaire}</p>
+        `
+        : seance.focus
+          ? `<p class="focus-carte-seance">${seance.focus}</p>`
+          : ""
+    }
+
+    <p class="etoiles-journal">${etoiles}</p>
+  `;
+
+  carte.addEventListener("click", () => {
+    ouvrirDetailSeance(seance, dateFormatee, etoiles, estMatch);
+  });
+
+  const boutonSupprimer = carte.querySelector(".supprimer-seance-compacte");
+
+  boutonSupprimer.addEventListener("click", (event) => {
+    event.stopPropagation();
+
+    if (!confirm("Supprimer cette séance ?")) {
+      return;
+    }
+
+    const seancesActuelles = JSON.parse(localStorage.getItem("seances")) || [];
+
+    const nouvellesSeances =
+      seancesActuelles.filter(s => s.date !== seance.date);
+
+    localStorage.setItem("seances", JSON.stringify(nouvellesSeances));
+
+    carte.remove();
+  });
+
+  listeSeances.appendChild(carte);
+
+});
+
+// ================================
+// FICHE DÉTAIL (modale)
+// ================================
+
+function ouvrirDetailSeance(seance, dateFormatee, etoiles, estMatch) {
+
+  detailSeanceContenu.innerHTML = `
+
+    <h2>${dateFormatee}</h2>
+
+    <p class="sous-titre-trophee" style="margin-bottom: 20px;">
+      ${estMatch ? "Match" : "Entraînement"}
+    </p>
+
+    <div class="champ">
+      <span><strong>Focus :</strong> ${seance.focus || "Aucun focus"}</span>
+    </div>
+
+    ${
+      estMatch
+        ? `
+          <div class="champ">
+            <span><strong>Adversaire :</strong> ${seance.match.adversaire}</span>
+          </div>
+
+          <div class="champ">
+            <span><strong>Score :</strong> ${seance.match.score}</span>
+          </div>
+
+          <div class="champ">
+            <span><strong>Arrêts :</strong> ${seance.match.nombreArrets}</span>
+          </div>
+
+          <div class="champ">
+            <span><strong>Pourcentage d'arrêts :</strong> ${seance.match.pourcentageArrets} %</span>
+          </div>
+        `
+        : ""
+    }
+
+    <div class="ressenti">
+      <p class="etoiles-journal" style="font-size: 26px;">${etoiles}</p>
+    </div>
+
+    <div class="champ">
+      <span><strong>Commentaire :</strong></span>
+      <p class="commentaire-journal">${seance.commentaire || "Aucun commentaire."}</p>
+    </div>
+
+    <button id="fermerDetailSeance" class="fermerformulaire">Fermer</button>
+  `;
+
+  detailSeance.style.display = "flex";
+  document.body.classList.add("no-scroll");
+
+  document.getElementById("fermerDetailSeance").addEventListener("click", fermerDetailSeance);
+}
+
+function fermerDetailSeance() {
+  detailSeance.style.display = "none";
+  document.body.classList.remove("no-scroll");
+}
+
+// Fermer en cliquant en dehors de la fiche
+detailSeance.addEventListener("click", (event) => {
+  if (event.target === detailSeance) {
+    fermerDetailSeance();
+  }
+});
+</script>
+
+</html>

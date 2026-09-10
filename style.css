@@ -1,0 +1,1283 @@
+/* Style global mobile-first */
+body {
+  font-family: Verdana;
+  margin: 0;
+  padding: 0;
+  line-height: 1.5;
+  background-color: white;
+  color: #333;
+}
+
+/* Header */
+header {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url("Groupe.jpg");
+  background-size: cover;
+  color: white;
+  text-align: center;
+  padding: 5rem 0;
+  box-shadow: 0 5px 5px rgba(0,0,0,0.2);
+}
+
+header.pages {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  background-color: white;
+  color: #333;
+  background-image: none;
+
+  text-align: left;
+  padding: 1.3rem 1.5rem;
+
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+
+  font-size: 1em;
+}
+
+header.pages h1 {
+  margin: 0;
+  font-size: 1.3em;
+  font-weight: 600;
+}
+
+header.pages .icone-entete {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+
+  background-color: rgba(56, 144, 133, 0.12); /* teinte très légère de l'accent */
+}
+
+h1 {
+  font-weight: 600;
+  font-size: 2em;
+  line-height: 0.3;
+}
+
+h2 {
+  font-weight: 600;
+  font-size: 1.4em;
+}
+
+h3 {
+  font-weight: 100;
+  line-height: 0.5;
+}
+
+/* Sections */
+main {
+  padding: 1rem;
+}
+
+section {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  padding-top: 1px;
+  border-radius: 10px;
+  box-shadow: 0 1px 5px rgba(0,0,0,0.1);
+}
+
+.couleur {
+  border-color: #389085;
+  border-style: solid;
+  box-shadow: none;
+}
+
+/* Boutons */
+button {
+  display: block;
+  width: 100%;
+  padding: 1rem;
+  margin-bottom: 15px;
+  margin-top: 1rem;
+  background-color: #389085;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+a{
+  text-decoration: none;
+}
+
+.datedujour {
+  font-family: Verdana;
+  font-size: 20px;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 200; /* passe au-dessus de la bottom-nav (z-index: 100) */
+  background: rgba(0, 0, 0, 0.6);
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0; /* évite que le formulaire touche les bords en haut/bas */
+}
+
+.modal-content {
+  background: white;
+  padding: 20px 30px 30px;
+  border-radius: 15px;
+  width: 80%;
+  max-width: 500px;
+
+  max-height: 90vh;      /* le formulaire ne dépasse jamais de l'écran */
+  overflow-y: auto;      /* scroll interne au formulaire si le contenu est trop long */
+  box-sizing: border-box;
+}
+
+.fermerformulaire {
+  color: #389085;
+  background: none;
+  border: none;
+  width: fit-content;
+  padding: 1rem;
+  margin-top: 1rem;
+  margin: 1rem auto 0;
+}
+
+.type-seance {
+  display: flex;
+  gap: 25px;
+  padding-bottom: 12px;
+}
+
+.type-seance label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.type-seance input[type="radio"] {
+  accent-color: #389085;
+  width: 20px;
+  height: 20px;
+}
+
+.etoiles {
+  display: flex;
+  gap: 10px;
+}
+
+.ressenti {
+  padding-bottom: 1em;
+}
+
+.etoiles span {
+  font-size: 30px;
+  color: #ccc;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.etoiles span.active {
+  color: #389085;
+}
+
+.champ {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-bottom: 1em;
+}
+
+.champ label {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.champ input[type="date"] {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px 14px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background: white;
+  font-size: 15px;
+  font-family: inherit;
+  color: #333;
+  outline: none;
+}
+
+.champ input[type="date"]:focus,
+.champ input[type="date"]:valid {
+  border-color: #389085;
+  box-shadow: 0 0 0 2px rgba(56, 144, 133, 0.15);
+}
+
+.commentaire {
+  width: 100%;
+  height: 50px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background: white;
+  font-size: 15px;
+  font-family: inherit;
+  color: #333;
+  outline: none;
+  padding: 0.5em;
+}
+
+.commentaire:focus,
+.commentaire:not(:placeholder-shown) {
+  border-color: #389085;
+  box-shadow: 0 0 0 2px rgba(56, 144, 133, 0.15);
+}
+
+#listeSeances {
+  width: 100%;
+}
+
+.supprimer-seance {
+  display: inline-flex;
+  width: auto;
+  border: none;
+  background: none;
+  padding: 2px 5px;
+  margin: 0;
+
+  font-size: 22px;
+  line-height: 1;
+  color: #999;
+  cursor: pointer;
+}
+
+/* Listes déroulantes */
+#adversaire,
+#focusSeance {
+  width: 100%;
+  padding: 12px 14px;
+
+  border: 1px solid #ddd;
+  border-radius: 10px;
+
+  background-color: white;
+
+  font-size: 15px;
+  color: #333;
+  font-family: Verdana;
+
+  outline: none;
+
+  appearance: none;
+  -webkit-appearance: none;
+
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 18px;
+
+  padding-right: 45px;
+  margin-bottom: 12px;
+
+  transition: 0.2s ease;
+}
+
+
+/* Focus / sélection */
+#adversaire:focus,
+#adversaire:valid,
+#focusSeance:focus,
+#focusSeance:valid {
+  border-color: #389085;
+  box-shadow: 0 0 0 2px rgba(56, 144, 133, 0.15);
+}
+
+/* Première option */
+#adversaire option:first-child {
+  color: #999;
+}
+
+/* Conteneur du score */
+.score {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+}
+
+/* Chaque sélecteur */
+.score-select {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Le sélecteur */
+.score-select input {
+  width: 60px;
+  height: 60px;
+
+  border: 1px solid #ddd;
+  border-radius: 16px;
+
+  background: white;
+
+  font-size: 25px;
+  font-weight: 500;
+  font-family: Verdana;
+  text-align: center;
+
+  outline: none;
+
+  appearance: none;
+  -webkit-appearance: none;
+
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 18px;
+
+  transition: 0.2s ease;
+}
+
+/* Notre score = BLEU */
+.notre-score input {
+  color: #389085;
+}
+
+/* Focus notre score */
+.notre-score input:focus {
+  box-shadow: 0 0 0 2px rgba(56, 144, 133, 0.15);
+}
+
+/* Score adverse */
+.adversaire-score input {
+  color: #333;
+}
+
+/* Focus score adverse */
+.adversaire-score input:focus {
+  box-shadow: 0 0 0 2px rgba(56, 144, 133, 0.15);
+}
+
+/* Le tiret */
+.tiret-score {
+  font-size: 30px;
+  font-weight: 600;
+  font-family: Verdana;
+  margin-bottom: 10px;
+}
+
+.stats-match {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-ligne {
+  display: flex;
+  align-items: baseline;
+  justify-content: left;
+  font-family: Verdana;
+}
+
+.stat-ligne input {
+  width: 80px;
+
+  border: none;
+  outline: none;
+  background: transparent;
+
+  padding: 0;
+
+  font-family: Verdana;
+  font-size: 20px;
+  font-weight: 500;
+  text-align: left;
+
+  color: #389085;
+}
+
+.stat-ligne span {
+  margin-left: 5px;
+
+  font-family: Verdana;
+  font-size: 14px;
+  color: #555;
+}
+
+.season-stats {
+  margin-top: 30px;
+  padding: 25px;
+  background: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.season-stats h2 {
+  margin: 0 0 20px;
+  font-size: 24px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+}
+
+.stat-card {
+  padding: 20px;
+  text-align: center;
+  background: #f5f5f5;
+  border-radius: 12px;
+}
+
+.stat-value {
+  display: block;
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.stat-label {
+  display: block;
+  font-size: 14px;
+  color: #666;
+}
+
+/* Sur téléphone */
+@media (max-width: 700px) {
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ================================
+   FOCUS
+================================ */
+
+.focus-section {
+  margin-bottom: 6em;
+}
+
+#listeFocus {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.focus-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 12px 15px;
+
+  background: #f5f5f5;
+  border-radius: 10px;
+
+  color: #333;
+  font-size: 16px;
+}
+
+.supprimer-focus {
+  width: auto;
+  margin: 0;
+  padding: 0 5px;
+
+  background: none;
+  color: #999;
+
+  font-size: 22px;
+  line-height: 1;
+
+  box-shadow: none;
+}
+
+.supprimer-focus:hover {
+  color: #c00;
+}
+
+.ajout-focus {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.ajout-focus input {
+  flex: 1;
+
+  min-width: 0;
+
+  padding: 12px 14px;
+
+  border: 1px solid #ddd;
+  border-radius: 10px;
+
+  background: white;
+
+  font-family: Verdana;
+  font-size: 15px;
+
+  outline: none;
+  box-sizing: border-box;
+}
+
+.ajout-focus input:focus {
+  border-color: #389085;
+  box-shadow: 0 0 0 2px rgba(56, 144, 133, 0.15);
+}
+
+.ajout-focus button {
+  width: auto;
+
+  margin: 0;
+  padding: 12px 18px;
+
+  font-size: 15px;
+}
+
+.aucun-focus {
+  color: #777;
+  font-size: 15px;
+}
+
+.focus-journal {
+  margin: 0 0 15px;
+  color: #389085;
+  font-size: 16px;
+}
+
+.focus-journal strong {
+  color: #333;
+}
+
+/* ================================
+   PAGE TROPHÉES
+================================ */
+
+.profil-niveau {
+  margin-bottom: 25px;
+}
+
+.niveau-trophees {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.niveau-trophees strong {
+  font-size: 22px;
+  color: #389085;
+}
+
+.niveau-trophees span {
+  font-size: 16px;
+  color: #666;
+}
+
+
+/* Collection */
+
+.collection-trophees h2 {
+  margin-bottom: 20px;
+}
+
+
+/* Deux cartes par ligne */
+
+.trophees-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+
+
+/* Carte */
+
+.carte-trophee {
+  min-width: 0;
+
+  padding: 18px 12px;
+
+  background: white;
+
+  border: 1px solid #ddd;
+  border-radius: 15px;
+
+  text-align: center;
+
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+
+/* Badge temporaire */
+
+.badge-trophee {
+  width: 75px;
+  height: 75px;
+
+  margin: 0 auto 12px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 50%;
+
+  background: #f5f5f5;
+
+  font-size: 35px;
+}
+
+
+/* Titre */
+
+.carte-trophee h3 {
+  margin: 5px 0 8px;
+
+  font-size: 16px;
+  line-height: 1.2;
+
+  color: #333;
+}
+
+
+/* Sous-titre */
+
+.sous-titre-trophee {
+  margin: 0;
+
+  font-size: 12px;
+  line-height: 1.4;
+
+  color: #666;
+}
+
+
+/* Date */
+
+.date-trophee {
+  margin: 12px 0 0;
+
+  font-size: 11px;
+
+  color: #389085;
+}
+
+/* ================================
+   NIVEAU / XP
+================================ */
+
+.niveau-section {
+  margin-top: 15px;
+  padding: 20px;
+
+  background: white;
+
+  border-radius: 15px;
+
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.niveau-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 12px;
+}
+
+.niveau-header h2 {
+  margin: 0;
+
+  color: #389085;
+  font-size: 22px;
+}
+
+.niveau-header span {
+  font-size: 15px;
+  color: #666;
+}
+
+
+/* Conteneur de la barre */
+
+.barre-xp {
+  width: 100%;
+  height: 14px;
+
+  background: #e5e5e5;
+
+  border-radius: 20px;
+
+  overflow: hidden;
+}
+
+
+/* Progression */
+
+.progression-xp {
+  width: 0%;
+  height: 100%;
+
+  background: #389085;
+
+  border-radius: 20px;
+
+  transition: width 0.5s ease;
+}
+
+
+/* Texte sous la barre */
+
+.prochain-niveau {
+  margin: 8px 0 0;
+
+  text-align: right;
+
+  font-size: 12px;
+
+  color: #777;
+}
+
+.trait {
+  color: #777;
+  text-align: center;
+  opacity: 30%;
+}
+
+/* ================================
+   TROPHÉES NON OBTENUS
+   ================================ */
+
+.carte-trophee.non-obtenu {
+  filter: grayscale(100%);
+  opacity: 0.55;
+}
+
+.carte-trophee.non-obtenu .badge-trophee {
+  filter: grayscale(100%);
+}
+
+.trophee-verrouille {
+  color: #777;
+  font-size: 0.85rem;
+  margin-top: 8px;
+}
+
+
+/* ================================
+   BARRE DE PROGRESSION
+   ================================ */
+
+.progression-trophee {
+  margin-top: 14px;
+}
+
+.barre-progression {
+  width: 100%;
+  height: 8px;
+  background: #e0e0e0;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.texte-progression {
+  margin-top: 5px;
+  text-align: right;
+  font-size: 0.8rem;
+  color: #666;
+}
+
+/* =================================
+   BARRE DE PROGRESSION DES TROPHÉES
+   ================================= */
+
+.progression-trophee {
+  width: 100%;
+  margin-top: 15px;
+}
+
+.barre-progression {
+  width: 100%;
+  height: 8px;
+  background: #e0e0e0;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.barre-progression-remplie {
+  height: 100%;
+  width: 0;
+  background: #389085;
+  border-radius: 20px;
+  transition: width 0.4s ease;
+}
+
+.texte-progression {
+  margin-top: 6px;
+  text-align: right;
+  font-size: 0.8rem;
+  color: #666;
+}
+
+
+/* =================================
+   TROPHÉE OBTENU
+   ================================= */
+
+.carte-trophee.obtenu {
+  filter: none;
+  opacity: 1;
+}
+
+
+/* =================================
+   TROPHÉE NON OBTENU
+   ================================= */
+
+.carte-trophee.non-obtenu {
+  filter: grayscale(100%);
+  opacity: 0.55;
+}
+
+.carte-trophee.non-obtenu .badge-trophee {
+  filter: grayscale(100%);
+}
+
+.carte-trophee.non-obtenu .barre-progression-remplie {
+  background: #777;
+}
+
+.carte-trophee.non-obtenu .texte-progression {
+  color: #777;
+}
+
+.trophee-verrouille {
+  margin-top: 8px;
+  color: #777;
+  font-size: 0.8rem;
+}
+
+/* Barre de navigation fixe (bas) */
+main {
+  padding-bottom: 90px; /* laisse la place pour ne pas passer sous la barre */
+}
+
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 4px;
+
+  height: 65px;
+  padding-bottom: env(safe-area-inset-bottom);
+
+  background-color: white;
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.nav-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+
+  width: auto;
+  background: none;
+  border: none;
+  box-shadow: none;
+  color: #999;
+  font-family: Verdana;
+  font-size: 0.65rem;
+  padding: 4px 8px;
+  margin: 0;
+  cursor: pointer;
+  transition: color 0.2s ease, transform 0.15s ease;
+}
+
+.nav-item:active svg {
+  transform: scale(0.9);
+}
+
+.nav-item.active {
+  color: #389085;
+}
+
+.nav-label {
+  line-height: 1;
+}
+
+.nav-item-add {
+  flex: 0 0 56px;
+  align-self: center;
+
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+
+  background: linear-gradient(145deg, #45a89c, #2e756b);
+  box-shadow: 0 6px 14px rgba(56, 144, 133, 0.45);
+
+  transform: translateY(-16px);
+  color: white;
+
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.nav-item-add:hover {
+  box-shadow: 0 8px 18px rgba(56, 144, 133, 0.55);
+}
+
+.nav-item-add:active {
+  transform: translateY(-16px) scale(0.92);
+  box-shadow: 0 4px 10px rgba(56, 144, 133, 0.4);
+}
+
+.parametre-ligne {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 48px;
+  height: 26px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.switch .slider {
+  position: absolute;
+  cursor: pointer;
+  inset: 0;
+  background-color: #ccc;
+  border-radius: 34px;
+  transition: 0.3s;
+}
+
+.switch .slider::before {
+  content: "";
+  position: absolute;
+  height: 20px;
+  width: 20px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  border-radius: 50%;
+  transition: 0.3s;
+}
+
+.switch input:checked + .slider {
+  background-color: #389085;
+}
+
+.switch input:checked + .slider::before {
+  transform: translateX(22px);
+}
+
+/* ================================
+   MODE SOMBRE
+   ================================ */
+
+html.dark body {
+  background-color: #121212;
+  color: #eaeaea;
+}
+
+html.dark header:not(.pages) {
+  box-shadow: 0 5px 5px rgba(0,0,0,0.5);
+}
+
+html.dark header.pages {
+  background-color: #1c1c1c;
+}
+
+html.dark section {
+  background-color: #1e1e1e;
+  box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+}
+
+html.dark .season-stats,
+html.dark .niveau-section {
+  background: #1e1e1e;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+}
+
+html.dark .stat-card,
+html.dark .focus-item,
+html.dark .badge-trophee {
+  background: #2a2a2a;
+}
+
+html.dark .stat-label,
+html.dark .aucun-focus,
+html.dark .sous-titre-trophee,
+html.dark .niveau-header span,
+html.dark .prochain-niveau,
+html.dark .texte-progression,
+html.dark .stat-ligne span {
+  color: #aaa;
+}
+
+html.dark .carte-seance,
+html.dark .carte-trophee,
+html.dark .modal-content {
+  background: #1e1e1e;
+  border-color: #333;
+  color: #eaeaea;
+}
+
+html.dark .champ input[type="date"],
+html.dark .commentaire,
+html.dark .ajout-focus input,
+html.dark .score-select input {
+  background-color: #2a2a2a;
+  border-color: #444;
+  color: #eaeaea;
+}
+
+html.dark #adversaire,
+html.dark #focusSeance {
+  background-color: #2a2a2a;
+  border-color: #444;
+  color: #eaeaea;
+}
+
+html.dark .barre-xp,
+html.dark .barre-progression {
+  background: #333;
+}
+
+html.dark .bottom-nav {
+  background-color: #1c1c1c;
+  box-shadow: 0 -2px 8px rgba(0,0,0,0.4);
+}
+
+html.dark .nav-item {
+  color: #888;
+}
+
+html.dark .nav-item.active {
+  color: #4db6ac;
+}
+
+html.dark .trait {
+  color: #aaa;
+}
+
+html.dark .carte-trophee h3,
+html.dark .focus-journal strong,
+html.dark .adversaire-score input {
+  color: #eaeaea;
+}
+
+html.dark .niveau-trophees span,
+html.dark .trophee-verrouille,
+html.dark .supprimer-seance,
+html.dark .supprimer-focus {
+  color: #999;
+}
+
+/* Flèche des listes déroulantes en mode sombre */
+html.dark #adversaire,
+html.dark #focusSeance {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%23eaeaea' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+}
+
+/* Icône du calendrier en mode sombre */
+html.dark .champ input[type="date"] {
+  color-scheme: dark;
+}
+
+html.dark header.pages {
+  background-color: #1c1c1c;
+  color: #eaeaea;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.4);
+  background-image: none;
+}
+
+html.dark header.pages .icone-entete {
+  background-color: rgba(77, 182, 172, 0.15);
+}
+
+html.dark .commentaire-journal {
+  color: #ccc;
+}
+
+html.dark .commentaire-journal {
+  color: #ccc;
+}
+
+html.dark .badge-entrainement {
+  background: #2a2a2a;
+  color: #aaa;
+}
+
+html.dark .date-carte-seance {
+  color: #888;
+}
+
+html.dark .focus-carte-seance {
+  color: #eaeaea;
+}
+
+html.dark .supprimer-seance-compacte {
+  color: #777;
+}
+
+html.dark .match-carte-seance {
+  color: #eaeaea;
+}
+
+html.dark .focus-carte-seance {
+  color: #999;
+}
+
+html.dark .adversaire-carte-seance {
+  color: #888;
+}
+
+html.dark .score-eux {
+  color: #eaeaea;
+}
+
+/* Empêche le scroll en fond quand le formulaire est ouvert */
+body.no-scroll {
+  overflow: hidden;
+}
+
+/* Réduit la marge au-dessus du titre "Nouvelle séance" */
+.modal-content h2 {
+  margin-top: 0;
+  line-height: 1.2;
+}
+
+/* Cartes de séance compactes, même gabarit que les cartes trophées */
+.carte-seance-compacte {
+  position: relative;
+  cursor: pointer;
+  transition: box-shadow 0.2s ease;
+}
+
+.carte-seance-compacte:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+}
+
+/* Badge de type, bien distinct visuellement */
+.badge-type {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 10px;
+}
+
+.badge-match {
+  background: rgba(56, 144, 133, 0.15);
+  color: #389085;
+}
+
+.badge-entrainement {
+  background: #f0f0f0;
+  color: #666;
+}
+
+/* Date discrète */
+.date-carte-seance {
+  margin: 0 0 4px;
+  font-size: 13px;
+  color: #999;
+}
+
+/* Adversaire, discret */
+.adversaire-carte-seance {
+  margin: 0 0 4px;
+  font-size: 13px;
+  font-weight: normal;
+  color: #666;
+}
+
+/* Score, l'info principale de la carte match */
+.score-carte-seance {
+  margin: 0 0 8px;
+  font-size: 24px;
+  font-weight: 500;
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+
+.score-nous {
+  color: #389085;
+}
+
+.score-eux {
+  color: #333;
+}
+
+.score-tiret {
+  color: #999;
+  margin: 0 0px;
+  font-weight: normal;
+}
+
+/* Focus, uniquement sur les cartes d'entraînement */
+.focus-carte-seance {
+  margin: 0 0 8px;
+  font-size: 14px;
+  color: #666;
+}
+
+.etoiles-journal {
+  color: #389085;
+  font-size: 14px;
+  letter-spacing: 3px;
+  margin-top: 0;
+}
+
+/* Bouton supprimer, en coin de carte */
+.supprimer-seance-compacte {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+
+  width: auto;
+  margin: 0;
+  padding: 0 5px;
+
+  background: none;
+  box-shadow: none;
+
+  color: #bbb;
+  font-size: 20px;
+  line-height: 1;
+
+  cursor: pointer;
+}
+
+.supprimer-seance-compacte:hover {
+  color: #c00;
+}
