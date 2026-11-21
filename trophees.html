@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Trophées</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="v2.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0d322e">
+  <script src="app.js"></script>
+  <script src="trophees.js"></script>
+</head>
+<body>
+<main>
+  <div class="page-head"><h1>Trophées</h1><span id="compte"></span></div>
+
+  <section class="lvl-compact" aria-label="Mon niveau">
+    <div class="lvl-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M12 2l3 6.5 7 .9-5.2 4.8 1.4 7L12 17.8l-6.2 3.4 1.4-7L2 9.4l7-.9z"/></svg></div>
+    <div class="lvl-body">
+      <div class="lvl-line"><b id="lvlTitre">Niveau 1</b><span id="lvlXp"></span></div>
+      <div class="pbar"><i id="xpBarre" style="width:0"></i></div>
+    </div>
+  </section>
+
+  <div class="chips" role="group" aria-label="Filtrer les trophées">
+    <button class="chip" type="button" data-f="tous" aria-pressed="true">Tous</button>
+    <button class="chip" type="button" data-f="obtenus" aria-pressed="false">Obtenus</button>
+    <button class="chip" type="button" data-f="restants" aria-pressed="false">À débloquer</button>
+  </div>
+
+  <div class="t-grid" id="grille"></div>
+</main>
+
+<script>
+monterNav("trophees");
+const $ = id => document.getElementById(id);
+const el = (tag, cls, txt) => { const e = document.createElement(tag); if (cls) e.className = cls; if (txt !== undefined) e.textContent = txt; return e; };
+
+synchroniserTrophees(); // calcule les dates d'obtention manquantes
+const obtenus = Store.get("tropheesObtenus", {});
+const stats = calcStats(Store.seances());
+
+// Niveau
+const xp = stats.xp, n = infosNiveau(xp);
+$("lvlTitre").textContent = "Niveau " + n.niveau;
+$("lvlXp").textContent = n.fin ? `${xp - n.debut} / ${n.fin - n.debut} XP` : "Niveau maximum";
+requestAnimationFrame(() => setTimeout(() => $("xpBarre").style.width = (n.ratio * 100) + "%", 50));
+
+const liste = TROPHEES.map(([id, titre, sous, txp, cle, obj, unite = ""]) => {
+  const actuel = Math.min(Number(stats[cle]) || 0, obj);
+  return { id, titre, sous, r: rarete(txp), actuel, obj, unite, ok: !!obtenus[id], date: obtenus[id] || "", ratio: actuel / obj };
+});
+const nbObtenus = liste.filter(t => t.ok).length;
+$("compte").textContent = `${nbObtenus} / ${liste.length}`;
+
+let filtre = "tous";
+function rendre() {
+  const g = $("grille"); g.replaceChildren();
+  const vus = liste.filter(t => filtre === "tous" || (filtre === "obtenus") === t.ok)
+    .sort((a, b) => a.ok !== b.ok ? (a.ok ? -1 : 1) : a.ok ? (a.date < b.date ? 1 : -1) : b.ratio - a.ratio);
+
+  vus.forEach((t, i) => {
+    const c = el("article", "trophee " + t.r + (t.ok ? "" : " locked"));
+    c.style.animationDelay = Math.min(i, 12) * 30 + "ms";
+    const badge = el("div", "badge"); badge.innerHTML = badgeSVG(t.r, t.ok);
+    c.append(badge, el("h3", "", t.titre), el("p", "", t.sous));
+    if (t.ok) {
+      const [y, m, j] = t.date.split("-").map(Number);
+      const dt = new Date(y, m - 1, j), autreAnnee = dt.getFullYear() !== new Date().getFullYear();
+      c.append(el("p", "date", "✓ " + dt.toLocaleDateString("fr-FR", autreAnnee ? { day: "numeric", month: "short", year: "numeric" } : { day: "numeric", month: "short" })));
+    } else {
+      const barre = el("div", "pbar sm"), rempli = el("i"); rempli.style.width = Math.round(t.ratio * 100) + "%";
+      barre.append(rempli);
+      c.append(barre, el("p", "prog", `${t.actuel}${t.unite} / ${t.obj}${t.unite}`));
+    }
+    c.append(el("span", "rare", NOMS_RARETE[t.r]));
+    g.append(c);
+  });
+}
+document.querySelectorAll(".chip").forEach(c => c.onclick = () => {
+  filtre = c.dataset.f;
+  document.querySelectorAll(".chip").forEach(x => x.setAttribute("aria-pressed", x === c));
+  rendre();
+});
+rendre();
+</script>
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Paramètres</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="v2.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0d322e">
+  <script src="app.js"></script>
+</head>
+<body>
+<main>
+  <div class="page-head"><h1>Paramètres</h1></div>
+
+  <section class="panel">
+    <h2>Mon profil</h2>
+    <form id="formProfil">
+      <div class="grid-2">
+        <div><label class="lab" for="prenom">Prénom</label><input id="prenom" required autocomplete="off"></div>
+        <div><label class="lab" for="nom">Nom</label><input id="nom" autocomplete="off"></div>
+      </div>
+      <div class="grid-num">
+        <div><label class="lab" for="numero">Numéro</label><input id="numero" inputmode="numeric" maxlength="3" autocomplete="off"></div>
+        <div><label class="lab" for="poste">Poste</label><input id="poste" autocomplete="off"></div>
+      </div>
+      <button class="btn" type="submit">Enregistrer le profil</button>
+    </form>
+  </section>
+
+  <section class="panel">
+    <h2>Apparence</h2>
+    <div class="setting-row">
+      <div><b>Mode sombre</b><small>Plus doux pour les yeux le soir</small></div>
+      <label class="switch"><input type="checkbox" id="modeSombre" aria-label="Mode sombre"><span class="slider"></span></label>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>Mes données</h2>
+    <p class="hint" style="margin:0 0 14px" id="resume"></p>
+    <button class="btn btn-soft" type="button" id="exporter">Exporter une sauvegarde</button>
+    <button class="btn btn-soft" type="button" id="importer">Importer une sauvegarde</button>
+    <input type="file" id="fichierImport" accept="application/json,.json" hidden>
+    <p class="hint" id="persist">Exporte une sauvegarde de temps en temps : elle te permet de tout retrouver si tu changes de téléphone.</p>
+  </section>
+
+  <section class="panel danger-zone">
+    <h2>Zone sensible</h2>
+    <button class="btn btn-danger" type="button" id="effacer">Effacer toutes mes données</button>
+  </section>
+</main>
+
+<script>
+monterNav("parametres");
+const $ = id => document.getElementById(id);
+const CLES = ["seances", "focus", "profil", "tropheesObtenus"];
+
+// ===== Profil =====
+function remplirProfil() {
+  const p = Store.profil(), [prenom, ...nom] = p.nom.split(" ");
+  $("prenom").value = prenom || ""; $("nom").value = nom.join(" ");
+  $("numero").value = p.numero; $("poste").value = p.poste;
+}
+$("formProfil").addEventListener("submit", e => {
+  e.preventDefault();
+  Store.set("profil", {
+    nom: ($("prenom").value.trim() + " " + $("nom").value.trim()).trim(),
+    numero: $("numero").value.trim() || "00",
+    poste: $("poste").value.trim() || "Gardienne"
+  });
+  toast("Profil enregistré ✓");
+});
+
+// ===== Mode sombre =====
+$("modeSombre").checked = localStorage.getItem("modeSombre") === "true";
+$("modeSombre").addEventListener("change", e => {
+  localStorage.setItem("modeSombre", e.target.checked);
+  document.documentElement.classList.toggle("dark", e.target.checked);
+});
+
+// ===== Données =====
+function majResume() {
+  const n = Store.seances().length;
+  $("resume").textContent = n ? `${n} séance${n > 1 ? "s" : ""} enregistrée${n > 1 ? "s" : ""} sur cet appareil.` : "Aucune séance enregistrée pour l'instant.";
+}
+
+$("exporter").addEventListener("click", async () => {
+  const data = {};
+  CLES.forEach(k => { const v = Store.get(k, null); if (v !== null) data[k] = v; });
+  const contenu = JSON.stringify({ app: "carnet-gardienne", version: 2, exporte: new Date().toISOString(), data }, null, 2);
+  const nom = "sauvegarde-" + new Date().toLocaleDateString("sv-SE") + ".json";
+  const fichier = new File([contenu], nom, { type: "application/json" });
+
+  // Sur téléphone : feuille de partage (Fichiers, Drive, mail…). Sinon : téléchargement classique.
+  if (navigator.canShare && navigator.canShare({ files: [fichier] })) {
+    try { await navigator.share({ files: [fichier], title: "Sauvegarde" }); return; }
+    catch (e) { if (e.name === "AbortError") return; }
+  }
+  const url = URL.createObjectURL(fichier), a = document.createElement("a");
+  a.href = url; a.download = nom; document.body.append(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+  toast("Sauvegarde exportée ✓");
+});
+
+$("importer").addEventListener("click", () => $("fichierImport").click());
+$("fichierImport").addEventListener("change", async e => {
+  const f = e.target.files[0]; e.target.value = "";
+  if (!f) return;
+  try {
+    const json = JSON.parse(await f.text()), d = json.data || json;
+    if (!Array.isArray(d.seances) || !d.seances.every(s => s && typeof s.date === "string" && (s.type === "match" || s.type === "entrainement"))) throw new Error("format");
+    if (!confirm(`Remplacer tes données actuelles par cette sauvegarde (${d.seances.length} séance${d.seances.length > 1 ? "s" : ""}) ?`)) return;
+    d.seances.forEach(s => { s.id = s.id || crypto.randomUUID(); });
+    CLES.forEach(k => { if (d[k] !== undefined) Store.set(k, d[k]); });
+    remplirProfil(); majResume(); toast("Sauvegarde importée ✓");
+  } catch { toast("Ce fichier n'est pas une sauvegarde valide"); }
+});
+
+$("effacer").addEventListener("click", () => {
+  if (prompt("Cette action est définitive. Pense à exporter une sauvegarde avant.\n\nTape EFFACER pour confirmer.") !== "EFFACER") return;
+  CLES.forEach(k => localStorage.removeItem(k));
+  localStorage.removeItem("dernierNiveauAffiche");
+  remplirProfil(); majResume(); toast("Données effacées");
+});
+
+// Demande au navigateur de ne pas nettoyer les données automatiquement
+if (navigator.storage && navigator.storage.persist) {
+  navigator.storage.persist().then(ok => {
+    if (ok) $("persist").textContent = "Tes données sont protégées contre le nettoyage automatique du navigateur. Une sauvegarde reste utile si tu changes de téléphone.";
+  });
+}
+
+remplirProfil(); majResume();
+</script>
+</body>
+</html>

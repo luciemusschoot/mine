@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Journal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="v2.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0d322e">
+  <script src="app.js"></script>
+</head>
+<body>
+<main>
+  <div class="page-head"><h1>Journal</h1><span id="compte"></span></div>
+  <div class="chips" role="group" aria-label="Filtrer les séances">
+    <button class="chip" type="button" data-f="tous" aria-pressed="true">Tout</button>
+    <button class="chip" type="button" data-f="match" aria-pressed="false">Matchs</button>
+    <button class="chip" type="button" data-f="entrainement" aria-pressed="false">Entraînements</button>
+  </div>
+  <div id="liste"></div>
+</main>
+
+<div class="sheet" id="detail"><div class="sheet-content" id="detailContenu"></div></div>
+
+<script>
+monterNav("journal");
+const $ = id => document.getElementById(id);
+const el = (tag, cls, txt) => { const e = document.createElement(tag); if (cls) e.className = cls; if (txt !== undefined) e.textContent = txt; return e; };
+const dateLoc = d => { const [y, m, j] = d.split("-").map(Number); return new Date(y, m - 1, j); };
+const etoiles = n => "★".repeat(Number(n) || 0) + "☆".repeat(5 - (Number(n) || 0));
+
+// Donne un identifiant aux anciennes séances (créées avant la V2)
+let seances = Store.seances();
+if (seances.some(s => !s.id)) { seances.forEach(s => { s.id = s.id || crypto.randomUUID(); }); Store.set("seances", seances); }
+let filtre = "tous";
+
+function carte(s, d) {
+  const match = s.type === "match" && s.match;
+  const issue = match ? (s.match.scoreNous > s.match.scoreAdversaire ? "v" : s.match.scoreNous < s.match.scoreAdversaire ? "d" : "n") : "";
+  const b = el("button", "seance " + issue); b.type = "button";
+
+  const jour = el("div", "jour", String(d.getDate()));
+  jour.append(el("small", "", d.toLocaleDateString("fr-FR", { month: "short" })));
+
+  const infos = el("div", "infos");
+  infos.append(el("div", "titre", match ? "vs " + s.match.adversaire : "Entraînement"));
+  infos.append(el("div", "sous", match ? `${s.match.nombreArrets} arrêts, ${fmt(s.match.pourcentageArrets, 0)} %` : (s.focus || "Sans focus")));
+
+  const droite = el("div", "droite");
+  if (match) {
+    const sc = el("div", "sc"); const nous = el("b", "", s.match.scoreNous);
+    sc.append(nous, " – " + s.match.scoreAdversaire); droite.append(sc);
+  }
+  droite.append(el("div", "mini-stars", etoiles(s.note)));
+
+  b.append(jour, infos, droite);
+  b.onclick = () => ouvrirDetail(s, d);
+  return b;
+}
+
+function rendre() {
+  const liste = $("liste"); liste.replaceChildren();
+  const tri = seances.filter(s => filtre === "tous" || s.type === filtre)
+    .sort((a, b) => a.date < b.date ? 1 : a.date > b.date ? -1 : 0);
+  $("compte").textContent = tri.length + " séance" + (tri.length > 1 ? "s" : "");
+  if (!tri.length) {
+    liste.append(el("p", "empty", seances.length ? "Aucune séance de ce type." : "Ton journal est vide. Enregistre ta première séance avec le bouton +."));
+    return;
+  }
+  let mois = "";
+  tri.forEach(s => {
+    const d = dateLoc(s.date), m = d.toLocaleDateString("fr-FR", { month: "long", year: "numeric" });
+    if (m !== mois) { mois = m; liste.append(el("h2", "mois", m)); }
+    liste.append(carte(s, d));
+  });
+}
+
+document.querySelectorAll(".chip").forEach(c => c.onclick = () => {
+  filtre = c.dataset.f;
+  document.querySelectorAll(".chip").forEach(x => x.setAttribute("aria-pressed", x === c));
+  rendre();
+});
+
+// ===== Fiche détail =====
+function fermer() { $("detail").classList.remove("open"); document.body.classList.remove("no-scroll"); }
+
+function ouvrirDetail(s, d) {
+  const match = s.type === "match" && s.match, c = $("detailContenu");
+  c.replaceChildren();
+  c.append(el("h2", "", d.toLocaleDateString("fr-FR", { weekday: "long", day: "numeric", month: "long", year: "numeric" })));
+  c.append(el("p", "empty", match ? "Match" : "Entraînement"));
+
+  const dl = el("dl", "detail");
+  const ligne = (k, v) => dl.append(el("dt", "", k), el("dd", "", v));
+  ligne("Focus", s.focus || "Aucun");
+  if (match) {
+    ligne("Adversaire", s.match.adversaire);
+    ligne("Score", s.match.scoreNous + " – " + s.match.scoreAdversaire);
+    ligne("Arrêts", String(s.match.nombreArrets));
+    ligne("Pourcentage d'arrêts", fmt(s.match.pourcentageArrets) + " %");
+  }
+  ligne("Note", etoiles(s.note));
+  c.append(dl);
+  if (s.commentaire) c.append(el("p", "comm", s.commentaire));
+
+  const fermerBtn = el("button", "btn", "Fermer"); fermerBtn.type = "button"; fermerBtn.style.marginTop = "14px"; fermerBtn.onclick = fermer;
+  const suppr = el("button", "btn btn-danger", "Supprimer cette séance"); suppr.type = "button";
+  suppr.onclick = () => {
+    if (!confirm("Supprimer cette séance ?")) return;
+    seances = seances.filter(x => x.id !== s.id);
+    Store.set("seances", seances);
+    fermer(); rendre(); toast("Séance supprimée");
+  };
+  c.append(fermerBtn, suppr);
+
+  $("detail").classList.add("open"); document.body.classList.add("no-scroll");
+}
+$("detail").addEventListener("click", e => { if (e.target === $("detail")) fermer(); });
+document.addEventListener("keydown", e => { if (e.key === "Escape") fermer(); });
+
+rendre();
+</script>
+</body>
+</html>
